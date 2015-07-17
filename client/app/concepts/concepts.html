@@ -1,0 +1,24 @@
+<div ng-include="'components/navbar/navbar.html'"></div>
+<div class="container"  >
+	<div class="row">
+		<div class="col-md-12">
+			<form class="form" name="form" ng-submit="save(form)" novalidate>
+				<div class="form-group" ng-class="{ 'has-success has-feedback': form.title.$valid && submitted,
+                                            'has-error has-feedback': form.title.$invalid && submitted }">
+					<label for="concept">Concepto</label>
+					<input type="text" id="concept" name="title" ng-model="concept.title" class="form-control" placeholder="Escriba el titulo del apartado" required />
+					<span ng-show="form.title.$error.required && submitted" class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
+				</div>
+				<div class="form-group">
+					<label for="description">Descripcion (opcional)</label>
+					<textarea id="description" ng-model="concept.description" class="form-control" placeholder="Describa de que se trata este apartado"></textarea>
+				</div>
+				<div class="checkbox">
+					<input type="checkbox" ng-model="concept.status" />
+					<strong>Habilitado</strong>
+				</div>
+				<button class="btn btn-success" type="submit">Guardar</button>  <button class="btn btn-default">Cancelar</button>
+			</form>		
+		</div>
+	</div>
+</div>
