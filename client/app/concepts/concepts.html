@@ -1,24 +1,44 @@
 <div ng-include="'components/navbar/navbar.html'"></div>
 <div class="container"  >
 	<div class="row">
-		<div class="col-md-12">
-			<form class="form" name="form" ng-submit="save(form)" novalidate>
+		<div class="col-md-8 col-xs-12">
+			<div class="alert alert-success alert-dismissible" role="alert" ng-show="submitSuccess">
+  				<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+  				<strong>Exito!</strong> {{ entry }} ha sido guardado. 
+			</div>
+			<div class="alert alert-danger alert-dismissible" role="alert" ng-show="submitError">
+  				<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+  				<strong>Error!</strong> Se produjo un error al intentar guardar.
+			</div>
+			<form class="form" name="form" id="form" ng-submit="save(form)" novalidate>
 				<div class="form-group" ng-class="{ 'has-success has-feedback': form.title.$valid && submitted,
                                             'has-error has-feedback': form.title.$invalid && submitted }">
 					<label for="concept">Concepto</label>
-					<input type="text" id="concept" name="title" ng-model="concept.title" class="form-control" placeholder="Escriba el titulo del apartado" required />
+					<input type="text" id="concept" name="title" ng-model="concept.title" ng-change="findSimilar(concept.title)" class="form-control" placeholder="Escriba el titulo del apartado" required />
 					<span ng-show="form.title.$error.required && submitted" class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
+					<span class="help-block" ng-show="form.title.$error.required && submitted">El concepto es obligatorio</span>
 				</div>
 				<div class="form-group">
 					<label for="description">Descripcion (opcional)</label>
 					<textarea id="description" ng-model="concept.description" class="form-control" placeholder="Describa de que se trata este apartado"></textarea>
 				</div>
 				<div class="checkbox">
-					<input type="checkbox" ng-model="concept.status" />
+					<input type="checkbox" ng-model="concept.status" ng-checked="true"/>
 					<strong>Habilitado</strong>
 				</div>
-				<button class="btn btn-success" type="submit">Guardar</button>  <button class="btn btn-default">Cancelar</button>
+				<button class="btn btn-success" type="submit">Guardar</button>  
+				<a class="btn btn-info" ng-click="resetForm()">Limpiar</a>
+				<a class="btn btn-default" href="/">Cancelar</a>
 			</form>		
+		</div>
+		<div class="col-md-4 col-xs-12">
+			<label>Retroalimentacion</label>
+			<div ng-show="repeated.length > 0">
+				<p>Se encontraron conceptos parecidos. Asegurese de no crear repetidos</p>
+				<ol>
+					<li ng-repeat="item in repeated">{{ item.name }}</li>
+				</ol>
+			</div>
 		</div>
 	</div>
 </div>

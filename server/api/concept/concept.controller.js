@@ -20,6 +20,16 @@ exports.show = function(req, res) {
   });
 };
 
+//Find an item by name
+exports.findbyname = function(req, res) {
+    var query = new RegExp(req.params.name, "i");
+    Concept.find({ name:query }, function(err, concept) {
+      if(err) { return handleError(res, err); }
+      if(!concept) { return res.status(404).send('Not Found'); }
+      return res.json(concept);
+    });
+};
+
 // Creates a new concept in the DB.
 exports.create = function(req, res) {
   Concept.create(req.body, function(err, concept) {
