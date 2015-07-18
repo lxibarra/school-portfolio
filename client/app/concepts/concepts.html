@@ -2,13 +2,16 @@
 <div class="container"  >
 	<div class="row">
 		<div class="col-md-12">
+      <div class="alert alert-danger" ng-show="error" role="alert">Error al intentar guardar la forma.  <span aria-hidden="true">&times;</span></div>
+      <div class="alert alert-success" ng-show="success" role="alert">El concepto <b>{{last_saved}}</b> ha sido guardado.  <span aria-hidden="true">&times;</span></div>
 			<form class="form" name="form" ng-submit="save(form)" novalidate>
 				<div class="form-group" ng-class="{ 'has-success has-feedback': form.title.$valid && submitted,
                                             'has-error has-feedback': form.title.$invalid && submitted }">
 					<label for="concept">Concepto</label>
 					<input type="text" id="concept" name="title" ng-model="concept.title" class="form-control" placeholder="Escriba el titulo del apartado" required />
 					<span ng-show="form.title.$error.required && submitted" class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
-				</div>
+				  <p class="help-block" ng-show="form.title.$error.required && submitted">El titulo del concepto es obligatorio</p>
+        </div>
 				<div class="form-group">
 					<label for="description">Descripcion (opcional)</label>
 					<textarea id="description" ng-model="concept.description" class="form-control" placeholder="Describa de que se trata este apartado"></textarea>
@@ -18,7 +21,7 @@
 					<strong>Habilitado</strong>
 				</div>
 				<button class="btn btn-success" type="submit">Guardar</button>  <button class="btn btn-default">Cancelar</button>
-			</form>		
+			</form>
 		</div>
 	</div>
 </div>
