@@ -3,6 +3,8 @@
 angular.module('newappApp')
   .controller('ConceptsCreateCtrl', function ($scope, $http, $timeout) {
     var SearchPromise;
+    $scope.concept = {};
+    $scope.concept.status = true;
     
     $scope.save = function(form) {
       $scope.submitted = true;
@@ -14,7 +16,7 @@ angular.module('newappApp')
         $http.post('api/concepts', {
           name:$scope.concept.title,
           info:$scope.concept.description,
-          active:$scope.concept.status
+          active:$scope.concept.status? true : false
         }).then(function() {
             $scope.entry = $scope.concept.title;
             $scope.submitSuccess = true;
