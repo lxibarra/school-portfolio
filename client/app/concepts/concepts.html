@@ -1,6 +1,7 @@
 <div ng-include="'components/navbar/navbar.html'"></div>
 <div class="container"  >
 	<div class="row">
+    <a href="/concepts/create" class="btn btn-primary pull-right">Crear</a>
 		<table class="table table-striped">
 			<thead>
 				<th>#</th>
@@ -9,9 +10,9 @@
 				<th>Estatus</th>
 			</thead>
 			<tbody>
-				<tr ng-repeat="item in data">
-					<td>{{ $index }}</td>
-					<td>{{ item.name }}</td>
+				<tr ng-repeat="item in data | orderBy:'name'">
+					<td>{{ $index + 1 }}</td>
+					<td><a ng-href="/concepts/edit/{{item._id}}">{{ item.name }}</a></td>
 					<td>{{ item.info }}</td>
 					<td><input type="checkbox" ng-checked="item.active" ng-click="changeStatus(item._id)" /></td>
 				</tr>

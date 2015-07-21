@@ -1,10 +1,15 @@
 <div ng-include="'components/navbar/navbar.html'"></div>
-<div class="container"  >
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      <a href="/concepts" class="btn btn-primary pull-right">Catalogo</a>
+    </div>
+  </div>
 	<div class="row">
 		<div class="col-md-8 col-xs-12">
 			<div class="alert alert-success alert-dismissible" role="alert" ng-show="submitSuccess">
   				<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-  				<strong>Exito!</strong> {{ entry }} ha sido guardado. 
+  				<strong>Exito!</strong> {{ entry }} ha sido guardado.
 			</div>
 			<div class="alert alert-danger alert-dismissible" role="alert" ng-show="submitError">
   				<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -26,10 +31,10 @@
 					<input type="checkbox" ng-model="concept.status"/>
 					<strong>Habilitado</strong>
 				</div>
-				<button class="btn btn-success" type="submit">Guardar</button>  
+				<button class="btn btn-success" type="submit">Guardar</button>
 				<a class="btn btn-info" ng-click="resetForm()">Limpiar</a>
 				<a class="btn btn-default" href="/">Cancelar</a>
-			</form>		
+			</form>
 		</div>
 		<div class="col-md-4 col-xs-12">
 			<label>Retroalimentacion</label>

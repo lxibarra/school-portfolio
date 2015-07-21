@@ -5,34 +5,34 @@ angular.module('newappApp')
     var SearchPromise;
     $scope.concept = {};
     $scope.concept.status = true;
-    
+
     $scope.save = function(form) {
       $scope.submitted = true;
       $scope.submitSuccess = false;
       $scope.submitError = false;
-     
+
       if(form.$valid) {
         $scope.submitError = false;
         $http.post('api/concepts', {
           name:$scope.concept.title,
           info:$scope.concept.description,
           active:$scope.concept.status? true : false
-        }).then(function() {
+        }).success(function() {
             $scope.entry = $scope.concept.title;
             $scope.submitSuccess = true;
             setTimeout(function() {
                 $scope.$apply(function(){
                   $scope.submitSuccess = false;
-                  $scope.resetForm(); 
+                  $scope.resetForm();
                 });
-               
+
             }, 3000);
         }).catch(function() {
             $scope.submitError = true;
         });
       }
-    }
-    
+    };
+
     $scope.resetForm = function ()
     {
       $scope.submitError = false;
@@ -40,7 +40,7 @@ angular.module('newappApp')
       $scope.concept = {};
       $scope.form.$setPristine();
     };
-    
+
     $scope.findSimilar = function(name) {
        if(SearchPromise) {
          $timeout.cancel(SearchPromise);
