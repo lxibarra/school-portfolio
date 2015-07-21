@@ -5,6 +5,6 @@ angular.module('newappApp')
     $routeProvider
       .when('/concepts/edit/:id', {
         templateUrl: 'app/concepts/create/concepts/create.html',
-        controller: 'ConceptsEditCtrl'
+        controller: 'ConceptsCreateCtrl'
       });
   });

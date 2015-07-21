@@ -2,7 +2,7 @@
 
 angular.module('newappApp')
   .controller('ConceptsEditCtrl', function ($scope, $routeParams, $http, $timeout, $filter) {
-
+/*
     var SearchPromise;
     $scope._id = undefined;
     $scope.concept = {};
@@ -18,7 +18,6 @@ angular.module('newappApp')
           $scope.concept.description = data.info;
           $scope.concept.status = data.active||false;
       }).then(function() {
-        //must hide loading
         $scope.bgwork = false;
       });
     }
@@ -76,4 +75,5 @@ angular.module('newappApp')
         });
       }, 2000);
     };
+    */
   });
