@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('newappApp')
-  .controller('ConceptsCreateCtrl', function ($scope, $http, $timeout, $routeParams, $filter) {
+  .controller('ConceptsCreateCtrl', function ($scope, $http, $timeout, $routeParams, $filter, Auth) {
     var SearchPromise;
     $scope._id = undefined;
     $scope.concept = {};

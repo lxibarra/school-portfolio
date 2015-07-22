@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('newappApp')
-  .controller('ConceptsCtrl', function ($scope, $http) {
+  .controller('ConceptsCtrl', function ($scope, $http, Auth) {
 
     //need to create a table with pager, filter and number of results per page
     //posible solution using skip and limit

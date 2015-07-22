@@ -5,6 +5,7 @@ angular.module('newappApp')
     $routeProvider
       .when('/concepts/create', {
         templateUrl: 'app/concepts/create/concepts/create.html',
-        controller: 'ConceptsCreateCtrl'
+        controller: 'ConceptsCreateCtrl',
+        authenticate: true
       });
   });
