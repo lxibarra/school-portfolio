@@ -1,20 +1,43 @@
 <ng-include src="'components/navbar/navbar.html'"></ng-include>
 <div class="container">
   <div class="row">
-    <div class="col-md-9">
+    <div class="col-md-8 col-xs-12">
       <form novalidate>
         <div class="form-group">
           <label for="Curso">Curso</label>
-          <input type="text" id="Curso" class="form-control" placeholder="Nombre del curso">
+          <input type="text" id="Curso" class="form-control" placeholder="Nombre del curso"/>
         </div>
         <div class="form-group">
           <label for="startDate">Fecha Inicio</label>
-          <input type="date" id="startDate" class="form-control" placeholder="Fecha Inicio">
+          <input type="date" id="startDate" class="form-control" placeholder="Fecha Inicio"/>
         </div>
+        <div class="form-group">
+          <label for="endDate">Fecha Fin</label>
+          <input type="date" id="endDate" class="form-control" placeholder="Fecha Fin "/>
+        </div>
+        <div class="form-group">
+            <label for="description">Descripcion</label>
+            <textarea class="form-control" id="description" placeholder="Algun comentario (opcional)"></textarea>
+        </div>
+        <a href="#" class="btn btn-success">Guardar</a>
+        <a href="#" class="btn btn-info">Limpiar</a>
+        <a href="#" class="btn btn-default">Cancelar</a>
       </form>
     </div>
-    <div class="col-md-3">
-
+    <div class="col-md-4 col-xs-12">
+      <label>Conceptos</label>
+      <div class="well">
+        <ul class="list-unstyled">
+          <li>
+              <input type="checkbox" name="conceptSelection[]"> Seleccionar todo
+          </li>
+          <li>
+            <ul class="">
+              <li ng-repeat="item in concepts"><input type="checkbox" ng-click="save()" ng-model="crap"> {{ item.name }}</li>
+            </ul>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </div>
