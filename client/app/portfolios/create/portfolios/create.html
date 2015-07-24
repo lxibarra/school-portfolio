@@ -19,7 +19,7 @@
             <label for="description">Descripcion</label>
             <textarea class="form-control" id="description" placeholder="Algun comentario (opcional)"></textarea>
         </div>
-        <a href="#" class="btn btn-success">Guardar</a>
+        <a href="#" ng-click="save()" class="btn btn-success">Guardar</a>
         <a href="#" class="btn btn-info">Limpiar</a>
         <a href="#" class="btn btn-default">Cancelar</a>
       </form>
@@ -29,11 +29,11 @@
       <div class="well">
         <ul class="list-unstyled">
           <li>
-              <input type="checkbox" name="conceptSelection[]"> Seleccionar todo
+              <input type="checkbox" name=""/> Seleccionar todo
           </li>
           <li>
             <ul class="">
-              <li ng-repeat="item in concepts"><input type="checkbox" ng-click="save()" ng-model="crap"> {{ item.name }}</li>
+              <li ng-repeat="item in concepts"><input type="checkbox" checkbox-group  datavalue="name"> {{ item.name }}</li>
             </ul>
           </li>
         </ul>
@@ -41,3 +41,4 @@
     </div>
   </div>
 </div>
+
