@@ -11,15 +11,34 @@ angular.module('newappApp')
     //this will set the initial checked checkboxes
     $scope.array = []; //for updates i have to set the _id in the array for preselection
     $scope.array_ = angular.copy($scope.array);
-
+      
     $scope.nada = function() {
       console.log($scope.array);
       return $scope.array.toString();
       //return Math.random();
     };
 
-    $scope.save = function() {
-      console.log($scope.array);
+    $scope.save = function(form) {
+      $scope.submitted = true;
+      $scope.submitSuccess = false;
+      $scope.submitError = false;
+      
+      if(form.$valid) {
+        $scope.submitSuccess = true;
+        console.log($scope.array);
+      }
+      else {
+        $scope.submitError = true;
+      }
+    }
+    
+    $scope.checkAll = function() {
+        var setter = $scope.checkList? true : false;
+       
+          angular.forEach($scope.concepts, function(item) {
+              item.Selected  = setter;
+          }); 
+       
     }
 
   });

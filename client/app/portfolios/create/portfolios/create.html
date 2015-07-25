@@ -2,24 +2,36 @@
 <div class="container">
   <div class="row">
     <div class="col-md-8 col-xs-12">
-      <form novalidate>
-        <div class="form-group">
+      <div class="alert alert-success alert-dismissible" role="alert" ng-show="submitSuccess">
+  				<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+  				<strong>Exito!</strong> {{ entry }} ha sido guardado.
+			</div>
+			<div class="alert alert-danger alert-dismissible" role="alert" ng-show="submitError">
+  				<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+  				<strong>Error!</strong> Se produjo un error al intentar guardar.
+			</div>
+      <form name="form" id="form"  novalidate ng-submit="save(form)">
+        <div class="form-group" ng-class="{ 'has-success has-feedback': form.curso.$valid && submitted, 
+                                             'has-error has-feedback': form.curso.$invalid && submitted    }">
           <label for="Curso">Curso</label>
-          <input type="text" id="Curso" class="form-control" placeholder="Nombre del curso"/>
+          <input type="text" id="Curso" ng-model="portfolio.curso" name="curso" class="form-control" placeholder="Nombre del curso" required/>
+          <span ng-show="form.curso.$error.required && submitted" class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
+					<span class="help-block" ng-show="form.curso.$error.required && submitted">El nombre del curso es obligatorio</span>
+			
         </div>
         <div class="form-group">
           <label for="startDate">Fecha Inicio</label>
-          <input type="date" id="startDate" class="form-control" placeholder="Fecha Inicio"/>
+          <input type="date" id="startDate" class="form-control" placeholder="Fecha Inicio (solo informativo)"/>
         </div>
         <div class="form-group">
           <label for="endDate">Fecha Fin</label>
-          <input type="date" id="endDate" class="form-control" placeholder="Fecha Fin "/>
+          <input type="date" id="endDate" class="form-control" placeholder="Fecha Fin (solo informativo) "/>
         </div>
         <div class="form-group">
             <label for="description">Descripcion</label>
             <textarea class="form-control" id="description" placeholder="Algun comentario (opcional)"></textarea>
         </div>
-        <a href="#" ng-click="save()" class="btn btn-success">Guardar</a>
+        <button type="submit" class="btn btn-success">Guardar</button>
         <a href="#" class="btn btn-info">Limpiar</a>
         <a href="#" class="btn btn-default">Cancelar</a>
       </form>
@@ -27,13 +39,14 @@
     <div class="col-md-4 col-xs-12">
       <label>Conceptos</label>
       <div class="well">
+        <p ng-show="array.length == 0 && submitted" class="text-danger">Seleccione por lo menos 1 concepto</p>
         <ul class="list-unstyled">
           <li>
-              <input type="checkbox" name=""/> Seleccionar todo
+              <input type="checkbox" ng-model="checkList" ng-click="checkAll()"/> Seleccionar todo
           </li>
           <li>
             <ul class="">
-              <li ng-repeat="item in concepts"><input type="checkbox" checkbox-group  datavalue="name"> {{ item.name }}</li>
+              <li ng-repeat="item in concepts"><input type="checkbox" ng-model="item.Selected" checkbox-group  datavalue="name"> {{ item.name }}</li>
             </ul>
           </li>
         </ul>
