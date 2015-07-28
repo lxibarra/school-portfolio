@@ -46,7 +46,7 @@
           </li>
           <li>
             <ul class="">
-              <li ng-repeat="item in concepts"><input type="checkbox" ng-model="item.Selected" checkbox-group  datavalue="name"> {{ item.name }}</li>
+              <li ng-repeat="item in concepts" ng-click="checkEach($event, item)"><input type="checkbox" ng-model="item.Selected"> {{ item.name }}</li>
             </ul>
           </li>
         </ul>
