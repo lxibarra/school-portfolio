@@ -4,9 +4,12 @@ var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 
 var PortfoliosSchema = new Schema({
-  name: String,
-  info: String,
-  active: Boolean
+  course: String,
+  startDate: Date,
+  endDate: Date,
+  description:String,
+  active:Boolean,
+  concepts:Array
 });
 
 module.exports = mongoose.model('Portfolios', PortfoliosSchema);

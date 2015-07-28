@@ -11,25 +11,25 @@
   				<strong>Error!</strong> Se produjo un error al intentar guardar.
 			</div>
       <form name="form" id="form"  novalidate ng-submit="save(form)">
-        <div class="form-group" ng-class="{ 'has-success has-feedback': form.curso.$valid && submitted, 
+        <div class="form-group" ng-class="{ 'has-success has-feedback': form.curso.$valid && submitted,
                                              'has-error has-feedback': form.curso.$invalid && submitted    }">
           <label for="Curso">Curso</label>
-          <input type="text" id="Curso" ng-model="portfolio.curso" name="curso" class="form-control" placeholder="Nombre del curso" required/>
+          <input type="text" id="Curso" ng-model="portfolio.course" name="curso" class="form-control" placeholder="Nombre del curso" required/>
           <span ng-show="form.curso.$error.required && submitted" class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
 					<span class="help-block" ng-show="form.curso.$error.required && submitted">El nombre del curso es obligatorio</span>
-			
+
         </div>
         <div class="form-group">
           <label for="startDate">Fecha Inicio</label>
-          <input type="date" id="startDate" class="form-control" placeholder="Fecha Inicio (solo informativo)"/>
+          <input type="date" id="startDate" ng-model="portfolio.startDate" class="form-control" placeholder="Fecha Inicio (solo informativo)"/>
         </div>
         <div class="form-group">
           <label for="endDate">Fecha Fin</label>
-          <input type="date" id="endDate" class="form-control" placeholder="Fecha Fin (solo informativo) "/>
+          <input type="date" id="endDate" ng-model="portfolio.endDate" class="form-control" placeholder="Fecha Fin (solo informativo) "/>
         </div>
         <div class="form-group">
             <label for="description">Descripcion</label>
-            <textarea class="form-control" id="description" placeholder="Algun comentario (opcional)"></textarea>
+            <textarea class="form-control" id="description" ng-model="portfolio.description" placeholder="Algun comentario (opcional)"></textarea>
         </div>
         <button type="submit" class="btn btn-success">Guardar</button>
         <a href="#" class="btn btn-info">Limpiar</a>
