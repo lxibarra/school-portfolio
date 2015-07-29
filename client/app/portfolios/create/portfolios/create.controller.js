@@ -1,15 +1,45 @@
 'use strict';
 
 angular.module('newappApp')
-  .controller('PortfoliosCreateCtrl', function ($scope, $http) {
-    $http.get('api/concepts').then(function(data) {
-      $scope.concepts = data.data;
-    });
+  .controller('PortfoliosCreateCtrl', function ($scope, $http, $routeParams, $filter) {
+    
 
+     $scope.portfolio = {};
     //this will set the initial checked checkboxes
     $scope.array = []; //for updates i have to set the _id in the array for preselection
     //$scope.array_ = angular.copy($scope.array);
-
+    
+     $http.get('api/concepts').then(function(data) {
+        
+        if($routeParams.id) {
+              $scope._id = $routeParams.id;
+              
+                var promise = $http.get('api/concepts').then(function(_data) {
+                  $scope.concepts = _data.data;
+                });
+                
+                promise.then(function() {
+                    $http.get('api/portfolioss/' + $scope._id).then(function(data) {
+                        $scope.portfolio.course = data.data.course;
+                        $scope.portfolio.startDate = new Date(data.data.startDate);
+                        $scope.portfolio.endDate = new Date(data.data.endDate);
+                        $scope.portfolio.description = data.data.description;
+                        angular.forEach(data.data.concepts, function(record_item) {
+                               angular.forEach($scope.concepts, function(item) {
+                                    if(record_item.name === item.name) {
+                                      item.Selected  = true;
+                                    }
+                                });
+                        });
+                    });
+                });
+            } else {
+              $http.get('api/concepts').then(function(_data) {
+                $scope.concepts = _data.data;
+              });
+            }
+     });
+    
     $scope.save = function(form) {
       $scope.submitted = true;
       $scope.submitSuccess = false;
@@ -46,7 +76,7 @@ angular.module('newappApp')
           $scope.array = $scope.concepts.slice();
         else
           $scope.array = [];
-        angular.forEach($scope.concepts, function(item) {
+          angular.forEach($scope.concepts, function(item) {
               item.Selected  = setter;
           });
 
