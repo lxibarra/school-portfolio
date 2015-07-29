@@ -4,27 +4,19 @@ angular.module('newappApp')
   .controller('PortfoliosCreateCtrl', function ($scope, $http) {
     $http.get('api/concepts').then(function(data) {
       $scope.concepts = data.data;
-    }, function() {
-      console.log('Error');
     });
 
     //this will set the initial checked checkboxes
     $scope.array = []; //for updates i have to set the _id in the array for preselection
     //$scope.array_ = angular.copy($scope.array);
 
-    $scope.nada = function() {
-      console.log($scope.array);
-      return $scope.array.toString();
-      //return Math.random();
-    };
-
     $scope.save = function(form) {
       $scope.submitted = true;
       $scope.submitSuccess = false;
       $scope.submitError = false;
-      console.log('fired button post');
-      if(form.$valid ) {
-        console.log('posting');
+      
+      if(form.$valid && $scope.array.length > 0) {
+        
         $scope.submitSuccess = true;
         $http.post('api/portfolioss', {
           course: $scope.portfolio.course,
@@ -36,6 +28,7 @@ angular.module('newappApp')
         }).then(function(){
           $scope.entry = $scope.portfolio.course;
           $scope.submitSuccess = true;
+          $scope.resetForm();
         }).catch(function(e) {
             console.log(e);
         });
@@ -72,7 +65,12 @@ angular.module('newappApp')
           console.log($scope.array);
         }
     }
-
-
+    
+    $scope.resetForm = function() {
+      $scope.submitError = false;
+      $scope.submitSuccess = false;
+      $scope.portfolio = {};
+      
+    }
 
   });
