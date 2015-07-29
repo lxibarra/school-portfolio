@@ -1,0 +1,21 @@
+<ng-include src="'components/navbar/navbar.html'"></ng-include>
+<div class="container">
+	<div class="rows">
+	<div class="col-md-12">
+		<table class="table table-stripped">
+			<thead>
+				<th>Portafolio</th>
+				<th>Inicia</th>
+				<th>Termina</th>
+			</thead>
+			<tbody>
+				<tr ng-repeat="item in items">
+					<td><a href="portfolios/edit/{{item._id}}">{{ item.course }}</a></td>
+					<td>{{ item.startDate | date}}</td>
+					<td>{{ item.endDate | date }}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+</div>
