@@ -29,12 +29,14 @@ exports.create = function(req, res) {
 };
 
 // Updates an existing portfolios in the DB.
+//if you use sub document arrays you need to change _.merge for _.extend
+//http://stackoverflow.com/questions/26372523/document-sub-arrays-stored-as-duplicate-values-of-the-first-entry-in-mongo 
 exports.update = function(req, res) {
   if(req.body._id) { delete req.body._id; }
   Portfolios.findById(req.params.id, function (err, portfolios) {
     if (err) { return handleError(res, err); }
     if(!portfolios) { return res.status(404).send('Not Found'); }
-    var updated = _.merge(portfolios, req.body);
+    var updated = _.extend(portfolios, req.body);
     updated.save(function (err) {
       if (err) { return handleError(res, err); }
       return res.status(200).json(portfolios);

@@ -6,10 +6,9 @@ angular.module('newappApp')
 
      $scope.portfolio = {};
      $scope.portfolio.status = true;
-    //this will set the initial checked checkboxes
-    $scope.array = []; //for updates i have to set the _id in the array for preselection
-    //$scope.array_ = angular.copy($scope.array);
-
+ 
+     $scope.array = []; 
+    
      $http.get('api/concepts').then(function(data) {
 
         if($routeParams.id) {
@@ -31,9 +30,11 @@ angular.module('newappApp')
                                angular.forEach($scope.concepts, function(item) {
                                     if(record_item.name === item.name) {
                                       item.Selected  = true;
+                                      $scope.array.push(record_item);
                                     }
                                 });
                         });
+                        console.log($scope.array);
                     });
                 });
             } else {
@@ -50,8 +51,18 @@ angular.module('newappApp')
       $scope.form = form;
       if(form.$valid && $scope.array.length > 0) {
 
-        $scope.submitSuccess = true;
-        $http.post('api/portfolioss', createModel()).success(function(){
+        
+        if( $scope._id) {
+          $http.put('api/portfolioss/' +  $scope._id, createModel())
+          .success(saveSuccess)
+          .catch(saveError);
+        } else {
+          $http.post('api/portfolioss/', createModel())
+          .success(saveSuccess)
+          .catch(saveError);    
+        }
+        
+        /*$http.post('api/portfolioss', createModel()).success(function(){
           $scope.entry = $scope.portfolio.course;
           $scope.submitSuccess = true;
           setTimeout(function() {
@@ -69,8 +80,25 @@ angular.module('newappApp')
       else {
         //$scope.submitError = true;
         //console.log(form.$valid);
+      }*/
       }
     };
+    
+    function saveError(a,b,c) {
+      $scope.submitError = true;
+      console.log(a,b,c);
+    }
+    
+    function saveSuccess() {
+      $scope.entry = $scope.portfolio.course;
+          $scope.submitSuccess = true;
+          setTimeout(function() {
+            $scope.$apply(function() {
+              if(!$scope._id)
+              $scope.resetForm();
+            });
+          }, 3000);
+    }
 
     function createModel() {
       return {
@@ -94,7 +122,7 @@ angular.module('newappApp')
               item.Selected  = setter;
           });
 
-        console.log($scope.array);
+        
     };
 
     $scope.checkEach = function(evt, item) {
@@ -102,11 +130,26 @@ angular.module('newappApp')
           if(evt.target.checked)
             $scope.array.push(item);
           else {
-              var index = $scope.array.indexOf(item);
-              if(index >= 0)
-                $scope.array.splice(index, 1);
+              var c = 0, index = [];
+              angular.forEach($scope.array, function(current) {
+                  if(current._id == item._id) {
+                         index.push(c);
+                  }
+                  c = c + 1;
+              });
+              
+              
+              //var index = $scope.array.indexOf(item);
+              if(index.length >= 0)
+               {
+                  for(let i = index.length-1; i >= 0; i--) {
+                    $scope.array.splice(index[i], 1);
+                  }
+                 /* index.forEach(function(i) {
+                    $scope.array.splice(i, 1);
+                  });*/
+               }
           }
-          console.log($scope.array);
         }
     };
 
@@ -117,5 +160,9 @@ angular.module('newappApp')
       $scope.submitted = false;
       $scope.form.$setPristine();
     }
+    
+    $scope.$watch('array.length', function() {
+      console.log($scope.array);
+    })
 
   });

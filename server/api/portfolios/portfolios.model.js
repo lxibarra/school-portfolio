@@ -9,7 +9,13 @@ var PortfoliosSchema = new Schema({
   endDate: Date,
   description:String,
   active:Boolean,
-  concepts:Array
+  concepts:[
+    {
+      name: { type: String },
+      info: { type: String },
+      active: { type:Boolean }
+    }
+  ]
 });
 
 module.exports = mongoose.model('Portfolios', PortfoliosSchema);
