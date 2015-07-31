@@ -1,5 +1,15 @@
 <ng-include src="'components/navbar/navbar.html'"></ng-include>
 <div class="container">
+  <div class="row" ng-show="bgwork">
+    <div class="col-xs-12">
+      <progressbar type="info" class="progress-striped active" value="100" animate="true"></progressbar>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <a ng-href="/portfolios" class="btn btn-primary pull-right">Catalogo</a>
+    </div>
+  </div>
   <div class="row">
     <div class="col-md-8 col-xs-12">
       <div class="alert alert-success alert-dismissible" role="alert" ng-show="submitSuccess">
@@ -30,6 +40,10 @@
         <div class="form-group">
             <label for="description">Descripcion</label>
             <textarea class="form-control" id="description" ng-model="portfolio.description" placeholder="Algun comentario (opcional)"></textarea>
+        </div>
+        <div class="checkbox">
+            <input type="checkbox" ng-model="portfolio.status"/>
+            <strong>Vigente</strong>
         </div>
         <button type="submit" class="btn btn-success">Guardar</button>
         <a href="#" class="btn btn-info">Limpiar</a>

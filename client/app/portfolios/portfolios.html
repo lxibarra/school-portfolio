@@ -2,17 +2,21 @@
 <div class="container">
 	<div class="rows">
 	<div class="col-md-12">
+
+    <a ng-href="/portfolios/create" class="btn btn-primary pull-right">Crear</a>
 		<table class="table table-stripped">
 			<thead>
 				<th>Portafolio</th>
 				<th>Inicia</th>
 				<th>Termina</th>
+        <th>Editar</th>
 			</thead>
 			<tbody>
 				<tr ng-repeat="item in items">
 					<td><a href="portfolios/edit/{{item._id}}">{{ item.course }}</a></td>
 					<td>{{ item.startDate | date}}</td>
 					<td>{{ item.endDate | date }}</td>
+          <td><a href="portfolios/edit/{{item._id}}"><i class="glyphicon glyphicon-pencil"></i></a></td>
 				</tr>
 			</tbody>
 		</table>

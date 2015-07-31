@@ -2,28 +2,31 @@
 
 angular.module('newappApp')
   .controller('PortfoliosCreateCtrl', function ($scope, $http, $routeParams, $filter) {
-    
+
 
      $scope.portfolio = {};
+     $scope.portfolio.status = true;
     //this will set the initial checked checkboxes
     $scope.array = []; //for updates i have to set the _id in the array for preselection
     //$scope.array_ = angular.copy($scope.array);
-    
+
      $http.get('api/concepts').then(function(data) {
-        
+
         if($routeParams.id) {
               $scope._id = $routeParams.id;
-              
+
                 var promise = $http.get('api/concepts').then(function(_data) {
                   $scope.concepts = _data.data;
                 });
-                
+
                 promise.then(function() {
                     $http.get('api/portfolioss/' + $scope._id).then(function(data) {
                         $scope.portfolio.course = data.data.course;
                         $scope.portfolio.startDate = new Date(data.data.startDate);
                         $scope.portfolio.endDate = new Date(data.data.endDate);
                         $scope.portfolio.description = data.data.description;
+                        $scope.portfolio.status = data.data.active;
+
                         angular.forEach(data.data.concepts, function(record_item) {
                                angular.forEach($scope.concepts, function(item) {
                                     if(record_item.name === item.name) {
@@ -39,35 +42,46 @@ angular.module('newappApp')
               });
             }
      });
-    
+
     $scope.save = function(form) {
       $scope.submitted = true;
       $scope.submitSuccess = false;
       $scope.submitError = false;
-      
+      $scope.form = form;
       if(form.$valid && $scope.array.length > 0) {
-        
+
         $scope.submitSuccess = true;
-        $http.post('api/portfolioss', {
-          course: $scope.portfolio.course,
-          startDate: $scope.portfolio.startDate,
-          endDate: $scope.portfolio.endDate,
-          description:$scope.portfolio.description,
-          active:true,
-          concepts:$scope.array
-        }).then(function(){
+        $http.post('api/portfolioss', createModel()).success(function(){
           $scope.entry = $scope.portfolio.course;
           $scope.submitSuccess = true;
-          $scope.resetForm();
+          setTimeout(function() {
+            $scope.$apply(function() {
+              $scope.resetForm();
+
+            });
+          }, 3000)
+
         }).catch(function(e) {
-            console.log(e);
+          $scope.submitError = true;
+          console.log(e);
         });
       }
       else {
         //$scope.submitError = true;
-        console.log(form.$valid);
+        //console.log(form.$valid);
       }
     };
+
+    function createModel() {
+      return {
+        course: $scope.portfolio.course,
+        startDate: $scope.portfolio.startDate,
+        endDate: $scope.portfolio.endDate,
+        description:$scope.portfolio.description,
+        active: $scope.portfolio.status? true: false,
+        concepts:$scope.array
+      }
+    }
 
     $scope.checkAll = function() {
 
@@ -94,13 +108,14 @@ angular.module('newappApp')
           }
           console.log($scope.array);
         }
-    }
-    
+    };
+
     $scope.resetForm = function() {
       $scope.submitError = false;
       $scope.submitSuccess = false;
       $scope.portfolio = {};
-      
+      $scope.submitted = false;
+      $scope.form.$setPristine();
     }
 
   });

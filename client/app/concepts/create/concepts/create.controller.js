@@ -7,7 +7,7 @@ angular.module('newappApp')
     $scope.concept = {};
     $scope.concept.status = true;
     $scope.bgwork = false;
-    
+
     if($routeParams.id) {
       $scope._id = $routeParams.id;
       $scope.bgwork = true;
@@ -28,7 +28,7 @@ angular.module('newappApp')
       if(form.$valid) {
         $scope.bgwork = true;
         $scope.submitError = false;
-        
+
         if($scope._id) {
            //update
            $http.put('api/concepts/' + $scope._id, createModel())
@@ -40,30 +40,12 @@ angular.module('newappApp')
           $http.post('api/concepts', createModel())
            .success(SaveSuccess)
            .catch(SaveError)
-           .then(saveComplete);  
+           .then(saveComplete);
         }
-        
-        /*
-        $http.post('api/concepts', {
-          name:$scope.concept.title,
-          info:$scope.concept.description,
-          active:$scope.concept.status? true : false
-        }).success(function() {
-            $scope.entry = $scope.concept.title;
-            $scope.submitSuccess = true;
-            setTimeout(function() {
-                $scope.$apply(function(){
-                  $scope.submitSuccess = false;
-                  $scope.resetForm();
-                });
 
-            }, 3000);
-        }).catch(function() {
-            $scope.submitError = true;
-        });*/
       }
     };
-    
+
     function createModel() {
       return {
           name:$scope.concept.title,
@@ -71,7 +53,7 @@ angular.module('newappApp')
           active:$scope.concept.status? true : false
       };
     }
-    
+
     function SaveSuccess() {
         $scope.entry = $scope.concept.title;
             $scope.submitSuccess = true;
@@ -84,11 +66,11 @@ angular.module('newappApp')
 
             }, 3000);
     }
-    
+
     function SaveError() {
         $scope.submitError = true;
     }
-    
+
     function saveComplete() {
         $scope.bgwork = false;
     }
