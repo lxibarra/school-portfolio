@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('newappApp')
-  .controller('ConceptsCreateCtrl', function ($scope, $http, $timeout, $routeParams, $filter, Auth) {
+  .controller('ConceptsCreateCtrl', function ($scope, $http, $timeout, $routeParams, $filter) {
     var SearchPromise;
     $scope._id = undefined;
     $scope.concept = {};
@@ -60,8 +60,9 @@ angular.module('newappApp')
             setTimeout(function() {
                 $scope.$apply(function(){
                   $scope.submitSuccess = false;
-                   if(!$scope._id)
-                      $scope.resetForm();
+                   if(!$scope._id) {
+                     $scope.resetForm();
+                   }
                 });
 
             }, 3000);

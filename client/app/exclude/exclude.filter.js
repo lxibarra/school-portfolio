@@ -7,8 +7,9 @@ angular.module('newappApp')
         var collection = [];
 
         data.data.forEach(function (item) {
-          if(item[field] != value)
+          if(item[field] !== value) {
             collection.push(item);
+          }
         });
         return collection;
       }

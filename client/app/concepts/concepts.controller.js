@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('newappApp')
-  .controller('ConceptsCtrl', function ($scope, $http, Auth) {
+  .controller('ConceptsCtrl', function ($scope, $http) {
 
     //need to create a table with pager, filter and number of results per page
     //posible solution using skip and limit
@@ -16,6 +16,6 @@ angular.module('newappApp')
     $scope.changeStatus = function(_id) {
       console.log('update the record:', _id);
 
-    }
+    };
 
   });

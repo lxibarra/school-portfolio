@@ -11,7 +11,7 @@ angular.module('newappApp')
     $scope.array = [];
 
 
-    $http.get('api/concepts').then(function (data) {
+    $http.get('api/concepts').then(function () {
 
       if ($routeParams.id) {
         $scope._id = $routeParams.id;
@@ -28,11 +28,11 @@ angular.module('newappApp')
             $scope.portfolio.description = data.data.description;
             $scope.portfolio.status = data.data.active;
 
-            angular.forEach(data.data.concepts, function (record_item) {
+            angular.forEach(data.data.concepts, function (recordItem) {
               angular.forEach($scope.concepts, function (item) {
-                if (record_item.name === item.name) {
+                if (recordItem.name === item.name) {
                   item.Selected = true;
-                  $scope.array.push(record_item);
+                  $scope.array.push(recordItem);
                 }
               });
             });
@@ -87,7 +87,7 @@ angular.module('newappApp')
           }
         });
       }, 3000);
-      $scope.bgwork = false
+      $scope.bgwork = false;
     }
 
     function createModel() {
@@ -98,16 +98,18 @@ angular.module('newappApp')
         description: $scope.portfolio.description,
         active: $scope.portfolio.status ? true : false,
         concepts: $scope.array
-      }
+      };
     }
 
     $scope.checkAll = function (preset) {
 
       var setter = typeof preset === 'undefined' ? ($scope.checkList ? true : false) : preset;
-      if (setter)
+      if (setter) {
         $scope.array = $scope.concepts.slice();
-      else
+      }
+      else {
         $scope.array = [];
+      }
       angular.forEach($scope.concepts, function (item) {
         item.Selected = setter;
       });
@@ -116,13 +118,14 @@ angular.module('newappApp')
     };
 
     $scope.checkEach = function (evt, item) {
-      if (evt.target.type == "checkbox") {
-        if (evt.target.checked)
+      if (evt.target.type === 'checkbox') {
+        if (evt.target.checked) {
           $scope.array.push(item);
+        }
         else {
           var c = 0, index = [];
           angular.forEach($scope.array, function (current) {
-            if (current._id == item._id) {
+            if (current._id === item._id) {
               index.push(c);
             }
             c = c + 1;
