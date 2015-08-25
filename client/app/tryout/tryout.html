@@ -1,0 +1,20 @@
+<div class="row">
+<div class="col-md-12">
+
+  <h1>Upload test</h1>
+  <div ng-repeat="itemFile in data">
+    <input type="file" nv-file-select="" data-prop="itemFile" uploader="uploader" multiple />
+    <div class="progress">
+    <div class="progress-bar" role="progressbar" aria-valuenow="{{ progress }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ progress }}%;">
+      {{ progress }}%
+    </div>
+  </div>
+</div>
+<hr/>
+<p>
+  Upload angular directive link
+<a href="https://github.com/nervgh/angular-file-upload/blob/master/examples/without-bootstrap/index.html">
+  Plugin demo.
+</a>
+</p>
+</div>

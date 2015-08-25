@@ -28,6 +28,7 @@
       <link rel="stylesheet" href="app/main/main.css">
       <link rel="stylesheet" href="app/portfolios/create/portfolios/create.css">
       <link rel="stylesheet" href="app/portfolios/portfolios.css">
+      <link rel="stylesheet" href="app/tryout/tryout.css">
       <link rel="stylesheet" href="components/modal/modal.css">
       <!-- endinjector -->
     <!-- endbuild -->
@@ -39,17 +40,6 @@
 
     <!-- Add your site or application content here -->
     <div ng-view=""></div>
-
-    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
-    <script>
-      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-      ga('create', 'UA-XXXXX-X');
-      ga('send', 'pageview');
-    </script>
 
     <!--[if lt IE 9]>
     <script src="bower_components/es5-shim/es5-shim.js"></script>
@@ -67,12 +57,13 @@
       <script src="bower_components/lodash/dist/lodash.compat.js"></script>
       <script src="bower_components/angular-socket-io/socket.js"></script>
       <!-- endbower -->
+      <script src="bower_components/angular-file-upload/dist/angular-file-upload.min.js"></script>
       <script src="socket.io-client/socket.io.js"></script>
     <!-- endbuild -->
 
-        
+
         <!-- build:js(.tmp) app/app.js -->
-        
+
         <script src="app/app.js"></script>
           <!-- injector:js -->
           <script src="app/account/account.js"></script>
@@ -94,6 +85,8 @@
           <script src="app/portfolios/edit/portfolios/edit.js"></script>
           <script src="app/portfolios/portfolios.controller.js"></script>
           <script src="app/portfolios/portfolios.js"></script>
+          <script src="app/tryout/tryout.controller.js"></script>
+          <script src="app/tryout/tryout.js"></script>
           <script src="components/auth/auth.service.js"></script>
           <script src="components/auth/user.service.js"></script>
           <script src="components/modal/modal.service.js"></script>
