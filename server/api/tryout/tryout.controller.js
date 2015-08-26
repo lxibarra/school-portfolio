@@ -23,12 +23,9 @@ exports.show = function(req, res) {
 
 // Creates a new tryout in the DB.
 exports.create = function(req, res) {
-  console.log(req.file);
-  //upload to S3
-  //http://stackoverflow.com/questions/17930204/simple-file-upload-to-s3-using-aws-sdk-and-node-express
-  console.log(process.env.AWS_S3_KEY);
-  console.log(process.env.AWS_S3_SECRET);
-  console.log(req.body);
+  console.log('Hi from the controller, ', req.file);
+  //in here we save the reference to mongodb
+
   res.status(200).send('File upladed successfully');
 };
 

@@ -2,12 +2,29 @@
 
 var express = require('express');
 var controller = require('./tryout.controller');
+var slug = require('slug');
 var multer = require('multer');
-var upload = multer({ dest: 'uploads/' });
+var s3 = require('multer-s3');
+
 
 var router = express.Router();
 
+var upload = multer({
+  storage: s3({
+    dirname: 'uploads/',
+    bucket: process.env.AWS_S3_BUCKET,
+    secretAccessKey: process.env.AWS_S3_SECRET,
+    accessKeyId: process.env.AWS_S3_KEY,
+    region: 'us-east-1',
+    filename: function (req, file, cb) {
+      cb(null, file.fieldname + '_' + Date.now() + '_' + slug(file.originalname, { remove: null, lower: true }));
+    }
+  })
+});
+
 router.post('/', upload.single('attachment'), controller.create);
+
+//pending save to the database.
 /*
 router.get('/', controller.index);
 router.get('/:id', controller.show);
