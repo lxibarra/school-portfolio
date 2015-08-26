@@ -6,6 +6,7 @@
 // You will need to set these on the server you deploy to.
 
 module.exports = {
+  AWS:'Amazon',
   DOMAIN:           'http://localhost:9000',
   SESSION_SECRET:   'newapp-secret',
 
