@@ -12,12 +12,12 @@
         <th>Editar</th>
 			</thead>
 			<tbody>
-				<tr ng-repeat="item in items">
-					<td><a href="portfolios/edit/{{item._id}}">{{ item.course }}</a></td>
-					<td>{{ item.startDate | date}}</td>
-					<td>{{ item.endDate | date }}</td>
-          <td><a href="portfolios/edit/{{item._id}}"><i class="glyphicon glyphicon-pencil"></i></a></td>
-				</tr>
+      <tr ng-repeat="item in items">
+        <td><a href="portfolios/attachments/{{item._id}}">{{ item.course }}</a></td>
+        <td>{{ item.startDate | date}}</td>
+        <td>{{ item.endDate | date }}</td>
+        <td><a href="portfolios/edit/{{item._id}}"><i class="glyphicon glyphicon-pencil"></i></a></td>
+      </tr>
 			</tbody>
 		</table>
 	</div>

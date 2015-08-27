@@ -25,7 +25,7 @@ exports.show = function(req, res) {
 exports.create = function(req, res) {
   console.log('Hi from the controller, ', req.file);
   //in here we save the reference to mongodb
-
+  console.log('Form data:', req.body);
   res.status(200).send('File upladed successfully');
 };
 
