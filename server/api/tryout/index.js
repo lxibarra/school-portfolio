@@ -11,7 +11,7 @@ var router = express.Router();
 
 var upload = multer({
   storage: s3({
-    dirname: 'uploads/',
+    dirname: 'uploads',
     bucket: process.env.AWS_S3_BUCKET,
     secretAccessKey: process.env.AWS_S3_SECRET,
     accessKeyId: process.env.AWS_S3_KEY,

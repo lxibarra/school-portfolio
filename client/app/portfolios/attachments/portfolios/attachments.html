@@ -30,29 +30,28 @@
       <p>
 
       <div class="file-input-holder">
-        <button class="btn btn-info btn-sm fakeBtn {{ item._id }} hide">Cargar nuevo archivo</button>
+        <button class="btn btn-success btn-sm fakeBtn {{ item._id }} hide">Cargar nuevo archivo</button>
         <input class="{{ item._id }} hide" type="file" nv-file-select="" data-prop="itemFile" uploader="item.upload"
                multiple/>
       </div>
       <strong class="{{ item._id }} pulse2 hide">Cargando archivo al servidor .....</strong>
       </p>
-      <table class="table">
+      <table class="table table-striped">
         <thead>
-        <th>ID</th>
+        <th>#</th>
+        <th>ver</th>
         <th>Nombre</th>
+        <th>Subido</th>
         <th>Acciones</th>
         </thead>
         <tbody>
-        <tr>
-          <td>100</td>
-          <td>Archivo X</td>
+        <tr ng-repeat="att in item.attachments">
+          <td>{{ $index + 1 }}</td>
+          <td><a href="{{ s3Bucket + att.url }}" target="_blank">Descargar</a></td>
+          <td>{{ att.name }}</td>
+          <td>{{ att.uploaded | date }}</td>
           <td>
-
-            <div class="btn-group">
-              <button class="btn btn-danger btn-xs">Borrar</button>
-              <button class="btn btn-primary btn-xs ">Reemplazar</button>
-            </div>
-
+              <button class="btn btn-danger btn-sm">Borrar</button>
           </td>
         </tr>
         </tbody>

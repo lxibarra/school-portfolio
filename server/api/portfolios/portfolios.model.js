@@ -13,7 +13,14 @@ var PortfoliosSchema = new Schema({
     {
       name: { type: String },
       info: { type: String },
-      active: { type:Boolean }
+      active: { type:Boolean },
+      attachments:[
+        {
+          name: { type:String },
+          uploaded: { type:Date },
+          url: { type:String }
+        }
+      ]
     }
   ]
 });

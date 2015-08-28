@@ -18,6 +18,7 @@ angular.module('newappApp', [
     $locationProvider.html5Mode(true);
     $httpProvider.interceptors.push('authInterceptor');
   })
+  .constant('s3Bucket', 'https://s3.amazonaws.com/school-portfolio/')
 
   .factory('authInterceptor', function ($rootScope, $q, $cookieStore, $location) {
     return {
