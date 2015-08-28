@@ -54,6 +54,7 @@ angular.module('newappApp')
     //http://stackoverflow.com/questions/15207788/calling-a-function-when-ng-repeat-has-finished
     $scope.$on('onFinishedRender', function() {
       angular.element('[type=file]').toggleClass('hide');
+      angular.element('.fakeBtn').toggleClass('hide');
     });
 
   });

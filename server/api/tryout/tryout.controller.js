@@ -2,6 +2,7 @@
 
 var _ = require('lodash');
 var Tryout = require('./tryout.model');
+var Portfolios = require('../portfolios/portfolios.model');
 
 
 // Get list of tryouts
@@ -26,6 +27,10 @@ exports.create = function(req, res) {
   console.log('Hi from the controller, ', req.file);
   //in here we save the reference to mongodb
   console.log('Form data:', req.body);
+
+  Portfolios.findById(req.body.document, function (err, portfolios) {
+    console.log(portfolios);
+  });
   res.status(200).send('File upladed successfully');
 };
 

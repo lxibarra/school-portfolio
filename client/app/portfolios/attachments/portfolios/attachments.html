@@ -5,9 +5,11 @@
       <div class="jumbotron">
 
         <h1 class="panel-title" ng-bind="portfolio.course"></h1>
+
         <div class="panel-body">
           <p ng-bind="portfolio.description"></p>
-          <b>Vigencia:</b> <span ng-bind="portfolio.startDate | date"></span> - <span ng-bind="portfolio.endDate | date"></span>
+          <b>Vigencia:</b> <span ng-bind="portfolio.startDate | date"></span> - <span
+          ng-bind="portfolio.endDate | date"></span>
         </div>
       </div>
     </div>
@@ -22,9 +24,39 @@
   <div class="row" ng-repeat="item in portfolio.concepts" on-finish-render="onFinishedRender">
     <div class="col-xs-12">
       <h3 ng-bind="item.name"></h3>
+
       <p ng-bind="item.info"></p>
-      <input class="btn btn-info {{ item._id }} hide" type="file" nv-file-select="" data-prop="itemFile" uploader="item.upload" multiple />
-      <span class="{{ item._id }} hide">Cargando archivo al servidor .....</span>
+
+      <p>
+
+      <div class="file-input-holder">
+        <button class="btn btn-info btn-sm fakeBtn {{ item._id }} hide">Cargar nuevo archivo</button>
+        <input class="{{ item._id }} hide" type="file" nv-file-select="" data-prop="itemFile" uploader="item.upload"
+               multiple/>
+      </div>
+      <strong class="{{ item._id }} pulse2 hide">Cargando archivo al servidor .....</strong>
+      </p>
+      <table class="table">
+        <thead>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Acciones</th>
+        </thead>
+        <tbody>
+        <tr>
+          <td>100</td>
+          <td>Archivo X</td>
+          <td>
+
+            <div class="btn-group">
+              <button class="btn btn-danger btn-xs">Borrar</button>
+              <button class="btn btn-primary btn-xs ">Reemplazar</button>
+            </div>
+
+          </td>
+        </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </div>
