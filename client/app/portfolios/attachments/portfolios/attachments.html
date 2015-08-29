@@ -24,9 +24,7 @@
   <div class="row" ng-repeat="item in portfolio.concepts" on-finish-render="onFinishedRender">
     <div class="col-xs-12">
       <h3 ng-bind="item.name"></h3>
-
       <p ng-bind="item.info"></p>
-
       <p>
 
       <div class="file-input-holder">
@@ -48,7 +46,12 @@
         <tr ng-repeat="att in item.attachments">
           <td>{{ $index + 1 }}</td>
           <td><a href="{{ s3Bucket + att.url }}" target="_blank">Descargar</a></td>
-          <td>{{ att.name }}</td>
+          <td><div label-editor data-label="{{ att.name }}"
+                   data-enter-action="updateFileName"
+                   data-data-parentid="{{ item._id }}"
+                   data-data-childid="{{ att._id }}">
+          </div>
+          </td>
           <td>{{ att.uploaded | date }}</td>
           <td>
               <button class="btn btn-danger btn-sm">Borrar</button>

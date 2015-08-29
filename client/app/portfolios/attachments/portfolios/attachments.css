@@ -15,6 +15,13 @@ input[type="file"]{
   z-index:0;
 }
 
+.label-editor {
+  border:0;
+  background-color: inherit;
+  cursor: pointer;
+  width:100%;
+}
+
 .pulse2 {
   -webkit-animation: pulse2 1s linear infinite;
   -moz-animation: pulse2 1s linear infinite;

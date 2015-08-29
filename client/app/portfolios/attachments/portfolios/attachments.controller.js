@@ -78,4 +78,8 @@ angular.module('newappApp')
       angular.element('.fakeBtn').toggleClass('hide');
     });
 
+    $scope.updateFileName = function(input, attrs) {
+      console.log(input.val(), attrs);
+    }
+
   });
