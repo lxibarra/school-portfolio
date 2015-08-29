@@ -57,6 +57,25 @@ exports.create = function (req, res) {
   //res.status(200).send('File was uploaded but there was a problem with the database.');
 };
 
+exports.updateAttachment = function(req, res) {
+  Portfolios.findById(req.params.id, function (err, portfolios) {
+    for (var c = 0, top = portfolios.concepts.length; c < top; c++) {
+      if (portfolios.concepts[c]._id == req.params.concept) {
+        for (var i = 0, topA = portfolios.concepts[c].attachments.length; i < topA; i++) {
+          if(portfolios.concepts[c].attachments[i]._id == req.params.attachment) {
+            portfolios.concepts[c].attachments[i].name = req.body.name;
+          }
+        }
+      }
+    }
+    var updated = _.extend(portfolios, portfolios);
+    updated.save(function (err) {
+      if (err) { return handleError(res, err); }
+      return res.status(200).json(portfolios);
+    });
+  });
+};
+
 // Updates an existing tryout in the DB.
 exports.update = function (req, res) {
   if (req.body._id) {

@@ -48,8 +48,9 @@
           <td><a href="{{ s3Bucket + att.url }}" target="_blank">Descargar</a></td>
           <td><div label-editor data-label="{{ att.name }}"
                    data-enter-action="updateFileName"
-                   data-data-parentid="{{ item._id }}"
-                   data-data-childid="{{ att._id }}">
+                   data-data-portfolio-id="{{ portfolio._id }}"
+                   data-data-concept-id="{{ item._id }}"
+                   data-data-attachment-id="{{ att._id }}">
           </div>
           </td>
           <td>{{ att.uploaded | date }}</td>

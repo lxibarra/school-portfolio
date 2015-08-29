@@ -27,7 +27,8 @@ angular.module('newappApp')
 
         Object.keys(attrs).forEach(function(prop) {
           if(prop.match(attregx)) {
-              args[prop] = attrs[prop];
+              //remove data word and lowercase the first letter
+              args[prop.replace('data', '').charAt(0).toLowerCase() + prop.replace('data', '').slice(1)] = attrs[prop];
           }
         });
 

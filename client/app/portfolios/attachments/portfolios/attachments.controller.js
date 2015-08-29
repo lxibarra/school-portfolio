@@ -28,27 +28,7 @@ angular.module('newappApp')
     }
 
     $http.get('api/portfolioss/' + $routeParams.id).then(function (data) {
-      /*$scope.portfolio = data.data;
-       var arr = [];
-       data.data.concepts.forEach(function(item) {
-       item.upload = new FileUploader({
-       url: '/api/tryouts',
-       alias: 'attachment',
-       domElement:item._id,
-       formData:[
-       { document: $routeParams.id },
-       { concept: item._id }
-       ]
-       });
-
-       item.upload.onAfterAddingFile = onAfterAddingFile;
-       item.upload.onSuccessItem = onSuccessItem;
-       item.upload.onProgressItem = onProgressItem;
-       item.upload.onCompleteItem = onCompleteItem;*/
-
       scopeDatabind(data.data);
-
-
     });
 
     function scopeDatabind(data) {
@@ -80,6 +60,13 @@ angular.module('newappApp')
 
     $scope.updateFileName = function(input, attrs) {
       console.log(input.val(), attrs);
+
+      $http.post('api/tryouts/' + attrs.portfolioId + '/' + attrs.conceptId + '/' + attrs.attachmentId,
+        { name:input.val()}).then(function(data){
+          //provide some visual update
+        }, function() {
+          alert('Error');
+        });
     }
 
   });

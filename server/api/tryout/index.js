@@ -23,6 +23,7 @@ var upload = multer({
 });
 
 router.post('/', upload.single('attachment'), controller.create);
+router.post('/:id/:concept/:attachment', controller.updateAttachment);
 
 //pending save to the database.
 /*
