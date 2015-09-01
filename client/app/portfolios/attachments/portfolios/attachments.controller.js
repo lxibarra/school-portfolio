@@ -67,6 +67,21 @@ angular.module('newappApp')
         }, function() {
           alert('Error');
         });
+    };
+
+    $scope.deleteFile = function(url, portfolio_id, concept_id, attachment_id, event) {
+      angular.element(event.target).attr('disabled');
+      $http.post('api/tryouts/remove/attachment', {
+        url:url,
+        portfolio_id:portfolio_id,
+        concept_id:concept_id,
+        attachment_id:attachment_id
+      }).then(function(response) {
+        scopeDatabind(response.data);
+      }, function() {
+        angular.element(event.target).removeAttr('disabled');
+      });
     }
+
 
   });

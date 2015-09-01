@@ -24,7 +24,7 @@ var upload = multer({
 
 router.post('/', upload.single('attachment'), controller.create);
 router.post('/:id/:concept/:attachment', controller.updateAttachment);
-
+router.post('/remove/attachment', controller.destroyAttachment);
 //pending save to the database.
 /*
 router.get('/', controller.index);

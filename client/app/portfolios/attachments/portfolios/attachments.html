@@ -55,7 +55,7 @@
           </td>
           <td>{{ att.uploaded | date }}</td>
           <td>
-              <button class="btn btn-danger btn-sm">Borrar</button>
+              <button class="btn btn-danger btn-sm" ng-click="deleteFile(att.url, portfolio._id, item._id, att._id, $event)">Borrar</button>
           </td>
         </tr>
         </tbody>
