@@ -9,6 +9,7 @@ var PortfoliosSchema = new Schema({
   endDate: Date,
   description:String,
   active:Boolean,
+  owner:String,
   concepts:[
     {
       name: { type: String },
