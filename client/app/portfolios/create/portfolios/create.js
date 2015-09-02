@@ -5,6 +5,7 @@ angular.module('newappApp')
     $routeProvider
       .when('/portfolios/create', {
         templateUrl: 'app/portfolios/create/portfolios/create.html',
-        controller: 'PortfoliosCreateCtrl'
+        controller: 'PortfoliosCreateCtrl',
+        authenticate:true
       });
   });

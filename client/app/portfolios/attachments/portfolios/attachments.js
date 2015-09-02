@@ -5,6 +5,7 @@ angular.module('newappApp')
     $routeProvider
       .when('/portfolios/attachments/:id', {
         templateUrl: 'app/portfolios/attachments/portfolios/attachments.html',
-        controller: 'PortfoliosAttachmentsCtrl'
+        controller: 'PortfoliosAttachmentsCtrl',
+        authenticate:true
       });
   });

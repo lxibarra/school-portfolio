@@ -5,6 +5,7 @@ var controller = require('./tryout.controller');
 var slug = require('slug');
 var multer = require('multer');
 var s3 = require('multer-s3');
+var auth = require('../../auth/auth.service');
 
 
 var router = express.Router();
@@ -22,9 +23,10 @@ var upload = multer({
   })
 });
 
-router.post('/', upload.single('attachment'), controller.create);
-router.post('/:id/:concept/:attachment', controller.updateAttachment);
-router.post('/remove/attachment', controller.destroyAttachment);
+router.post('/', auth.isAuthenticated(), upload.single('attachment'), controller.create);
+router.post('/:id/:concept/:attachment',  auth.isAuthenticated(), controller.updateAttachment);
+router.post('/remove/attachment', auth.isAuthenticated(), controller.destroyAttachment);
+
 //pending save to the database.
 /*
 router.get('/', controller.index);

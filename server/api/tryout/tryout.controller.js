@@ -146,7 +146,7 @@ exports.destroyAttachment = function (req, res) {
         }
       });
       //create an object and send the info with portfolio to the user
-      // data = { portfolio:portfolios, status:'ok' } or something like that 
+      // data = { portfolio:portfolios, status:'ok' } or something like that
       return res.status(200).json(portfolios);
     });
   });

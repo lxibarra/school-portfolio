@@ -5,6 +5,7 @@ angular.module('newappApp')
     $routeProvider
       .when('/tryout', {
         templateUrl: 'app/tryout/tryout.html',
-        controller: 'TryoutCtrl'
+        controller: 'TryoutCtrl',
+        authenticate:true
       });
   });
