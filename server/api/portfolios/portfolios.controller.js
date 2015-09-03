@@ -5,7 +5,7 @@ var Portfolios = require('./portfolios.model');
 
 // Get list of portfolioss
 exports.index = function(req, res) {
-  Portfolios.find(function (err, portfolioss) {
+  Portfolios.find({ owner:req.user.email }, function (err, portfolioss) {
     if(err) { return handleError(res, err); }
     return res.status(200).json(portfolioss);
   });
@@ -13,7 +13,7 @@ exports.index = function(req, res) {
 
 // Get a single portfolios
 exports.show = function(req, res) {
-  Portfolios.findById(req.params.id, function (err, portfolios) {
+  Portfolios.findById(req.params.id).where('owner').equals(req.user.email).exec(function (err, portfolios) {
     if(err) { return handleError(res, err); }
     if(!portfolios) { return res.status(404).send('Not Found'); }
     return res.json(portfolios);
@@ -22,6 +22,7 @@ exports.show = function(req, res) {
 
 // Creates a new portfolios in the DB.
 exports.create = function(req, res) {
+  req.body.owner = req.user.email;
   Portfolios.create(req.body, function(err, portfolios) {
     if(err) { return handleError(res, err); }
     return res.status(201).json(portfolios);
@@ -30,10 +31,10 @@ exports.create = function(req, res) {
 
 // Updates an existing portfolios in the DB.
 //if you use sub document arrays you need to change _.merge for _.extend
-//http://stackoverflow.com/questions/26372523/document-sub-arrays-stored-as-duplicate-values-of-the-first-entry-in-mongo 
+//http://stackoverflow.com/questions/26372523/document-sub-arrays-stored-as-duplicate-values-of-the-first-entry-in-mongo
 exports.update = function(req, res) {
   if(req.body._id) { delete req.body._id; }
-  Portfolios.findById(req.params.id, function (err, portfolios) {
+  Portfolios.findById(req.params.id).where('owner').equals(req.user.email).exec(function (err, portfolios) {
     if (err) { return handleError(res, err); }
     if(!portfolios) { return res.status(404).send('Not Found'); }
     var updated = _.extend(portfolios, req.body);
@@ -46,7 +47,7 @@ exports.update = function(req, res) {
 
 // Deletes a portfolios from the DB.
 exports.destroy = function(req, res) {
-  Portfolios.findById(req.params.id, function (err, portfolios) {
+  Portfolios.findById(req.params.id).where('owner').equals(req.user.email).exec(function (err, portfolios) {
     if(err) { return handleError(res, err); }
     if(!portfolios) { return res.status(404).send('Not Found'); }
     portfolios.remove(function(err) {
