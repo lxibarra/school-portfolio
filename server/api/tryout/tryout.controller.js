@@ -56,7 +56,7 @@ exports.create = function (req, res) {
 };
 
 exports.updateAttachment = function(req, res) {
-  Portfolios.findById(req.params.id).where('owner').equal(req.user.email).exec(function (err, portfolios) {
+  Portfolios.findById(req.params.id).where('owner').equals(req.user.email).exec(function (err, portfolios) {
     for (var c = 0, top = portfolios.concepts.length; c < top; c++) {
       if (portfolios.concepts[c]._id == req.params.concept) {
         for (var i = 0, topA = portfolios.concepts[c].attachments.length; i < topA; i++) {

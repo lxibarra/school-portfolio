@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('newappApp')
-  .controller('PortfoliosAttachmentsCtrl', function ($scope, $http, $routeParams, FileUploader, s3Bucket) {
+  .controller('PortfoliosAttachmentsCtrl', function ($scope, $http, $routeParams, FileUploader, s3Bucket, $cookieStore) {
 
     //currently using tryout endpoint need to remove
     $scope.s3Bucket = s3Bucket;
@@ -39,6 +39,8 @@ angular.module('newappApp')
           url: '/api/tryouts',
           alias: 'attachment',
           domElement: item._id,
+          withCredentials:true,
+          headers: { 'Authorization': 'Bearer ' + $cookieStore.get('token') },
           formData: [
             {document: $routeParams.id},
             {concept: item._id}
