@@ -23,11 +23,13 @@ var upload = multer({
   })
 });
 
-router.post('/', auth.isAuthenticated(), upload.single('attachment'), controller.create);
+//we need to authenticate the request and currently anyone can post to S3 with out auth.
+
+router.post('/',auth.isAuthenticated(), upload.single('attachment'), controller.create);
 router.post('/:id/:concept/:attachment',  auth.isAuthenticated(), controller.updateAttachment);
 router.post('/remove/attachment', auth.isAuthenticated(), controller.destroyAttachment);
 
-//pending save to the database.
+
 /*
 router.get('/', controller.index);
 router.get('/:id', controller.show);

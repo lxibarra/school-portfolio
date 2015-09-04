@@ -56,12 +56,13 @@ exports.create = function (req, res) {
 };
 
 exports.updateAttachment = function(req, res) {
-  Portfolios.findById(req.params.id, function (err, portfolios) {
+  Portfolios.findById(req.params.id).where('owner').equal(req.user.email).exec(function (err, portfolios) {
     for (var c = 0, top = portfolios.concepts.length; c < top; c++) {
       if (portfolios.concepts[c]._id == req.params.concept) {
         for (var i = 0, topA = portfolios.concepts[c].attachments.length; i < topA; i++) {
           if(portfolios.concepts[c].attachments[i]._id == req.params.attachment) {
             portfolios.concepts[c].attachments[i].name = req.body.name;
+            break;
           }
         }
       }
@@ -104,12 +105,13 @@ exports.destroyAttachment = function (req, res) {
   //we need con control the error in case the S3 fails, we may want
   //to keep a reference to it in the database or simply launch a queue
 
-  Portfolios.findById(req.body.portfolio_id, function (err, portfolios) {
+  Portfolios.findById(req.body.portfolio_id).where('owner').equals(req.user.email).exec(function (err, portfolios) {
     for (var c = 0, top = portfolios.concepts.length; c < top; c++) {
       if (portfolios.concepts[c]._id == req.body.concept_id) {
         for (var i = 0, topA = portfolios.concepts[c].attachments.length; i < topA; i++) {
           if(portfolios.concepts[c].attachments[i]._id == req.body.attachment_id) {
             portfolios.concepts[c].attachments.splice(i,1);
+            break;
           }
         }
       }
