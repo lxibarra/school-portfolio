@@ -31,6 +31,7 @@
       <link rel="stylesheet" href="app/portfolios/create/portfolios/create.css">
       <link rel="stylesheet" href="app/portfolios/portfolios.css">
       <link rel="stylesheet" href="app/tryout/tryout.css">
+      <link rel="stylesheet" href="components/footer/footer.css">
       <link rel="stylesheet" href="components/modal/modal.css">
       <!-- endinjector -->
     <!-- endbuild -->
@@ -42,7 +43,7 @@
 
     <!-- Add your site or application content here -->
     <div ng-view=""></div>
-
+    <div ng-include="'components/footer/footer.html'"></div>
     <!--[if lt IE 9]>
     <script src="bower_components/es5-shim/es5-shim.js"></script>
     <script src="bower_components/json3/lib/json3.min.js"></script>
