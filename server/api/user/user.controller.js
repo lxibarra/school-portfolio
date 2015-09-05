@@ -22,15 +22,20 @@ exports.index = function(req, res) {
 
 /**
  * Creates a new user
+ * All new users are inactive until admin aproval
  */
 exports.create = function (req, res, next) {
   var newUser = new User(req.body);
+  //Make super sure that user stays invalid on registration.
+  req.body.status = false;
   newUser.provider = 'local';
   newUser.role = 'user';
   newUser.save(function(err, user) {
     if (err) return validationError(res, err);
-    var token = jwt.sign({_id: user._id }, config.secrets.session, { expiresInMinutes: 60*5 });
-    res.json({ token: token });
+    //We dont return the validation token
+    //var token = jwt.sign({_id: user._id }, config.secrets.session, { expiresInMinutes: 60*5 });
+
+    res.json({ created: true });
   });
 };
 
@@ -75,6 +80,21 @@ exports.changePassword = function(req, res, next) {
       });
     } else {
       res.status(403).send('Forbidden');
+    }
+  });
+};
+
+exports.activate = function(req, res, next) {
+  var userId = req.params.id;
+  User.findById(userId, function(err, user) {
+    if(err) return res.status(500).send(err);
+    if(user) {
+      user.status = !user.status;
+      user.save(function(err) {
+        if(err) return ValidationError(res, err);
+      });
+    } else {
+      return res.status(404).send({ message:'Usuario no encontrado.'});
     }
   });
 };

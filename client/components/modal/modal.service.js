@@ -42,24 +42,25 @@ angular.module('newappApp')
            * @param  {All}           - any additional args are passed straight to del callback
            */
           return function() {
+            console.log(arguments);
             var args = Array.prototype.slice.call(arguments),
-                name = args.shift(),
+                name = args[0].name,
                 deleteModal;
 
             deleteModal = openModal({
               modal: {
                 dismissable: true,
-                title: 'Confirm Delete',
-                html: '<p>Are you sure you want to delete <strong>' + name + '</strong> ?</p>',
+                title: 'Confirmar Eliminación',
+                html: '<p>Esta seguro que desea borrar al usuario <strong>' + name + '</strong> ?</p>',
                 buttons: [{
                   classes: 'btn-danger',
-                  text: 'Delete',
+                  text: 'Borrar',
                   click: function(e) {
                     deleteModal.close(e);
                   }
                 }, {
                   classes: 'btn-default',
-                  text: 'Cancel',
+                  text: 'Cancelar',
                   click: function(e) {
                     deleteModal.dismiss(e);
                   }
