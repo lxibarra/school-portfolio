@@ -11,7 +11,7 @@ router.post('/', function(req, res, next) {
     var error = err || info;
     if (error) return res.status(401).json(error);
     if (!user) return res.status(404).json({message: 'Algo salió mal inténtelo de nuevo.'});
-    if (!user.status) res.status(401).json({ message:'Su cuenta ya se encuentra en proceso de revisión, por el momento no puede iniciar sesión.' });
+    if (!user.status) return res.status(401).json({ disabled:true, message:'La cuenta esta en proceso de activación'});
     var token = auth.signToken(user._id, user.role);
     res.json({token: token});
   })(req, res, next)

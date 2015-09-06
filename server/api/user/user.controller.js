@@ -32,10 +32,10 @@ exports.create = function (req, res, next) {
   newUser.role = 'user';
   newUser.save(function(err, user) {
     if (err) return validationError(res, err);
-    //We dont return the validation token
+    //We dont return the validation token because users must be approved first
     //var token = jwt.sign({_id: user._id }, config.secrets.session, { expiresInMinutes: 60*5 });
 
-    res.json({ created: true });
+    res.status(200).send({ created: true });
   });
 };
 
@@ -57,11 +57,16 @@ exports.show = function (req, res, next) {
  * restriction: 'admin'
  */
 exports.destroy = function(req, res) {
-  User.findByIdAndRemove(req.params.id, function(err, user) {
-    if(err) return res.status(500).send(err);
-    return res.status(204).send('No Content');
-  });
+  if(req.user._id.toString() !== req.params.id) {
+    User.findByIdAndRemove(req.params.id, function (err, user) {
+      if (err) return res.status(500).send(err);
+      return res.status(204).send('No Content');
+    });
+  } else {
+    return res.status(500).send({ message:'You cannot self terminate' });
+  }
 };
+
 
 /**
  * Change a users password
@@ -85,18 +90,24 @@ exports.changePassword = function(req, res, next) {
 };
 
 exports.activate = function(req, res, next) {
-  var userId = req.params.id;
-  User.findById(userId, function(err, user) {
-    if(err) return res.status(500).send(err);
-    if(user) {
-      user.status = !user.status;
-      user.save(function(err) {
-        if(err) return ValidationError(res, err);
-      });
-    } else {
-      return res.status(404).send({ message:'Usuario no encontrado.'});
-    }
-  });
+  if (req.user._id.toString() !== req.params.id) {
+    var userId = req.params.id;
+    User.findById(userId, function (err, user) {
+      if (err) return res.status(500).send(err);
+      if (user) {
+        if (!user.email === req.user.email) {
+          user.status = !user.status;
+          user.save(function (err) {
+            if (err) return ValidationError(res, err);
+          });
+        }
+      } else {
+        return res.status(404).send({message: 'Usuario no encontrado.'});
+      }
+    });
+  } else {
+    return res.status(500).send({message:'You cannot shutdown your self'});
+  }
 };
 
 /**

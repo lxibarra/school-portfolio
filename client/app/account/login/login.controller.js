@@ -18,6 +18,9 @@ angular.module('newappApp')
           $location.path('/');
         })
         .catch( function(err) {
+          if(err.disabled) {
+            $location.path('/inactiveuser');
+          }
           $scope.errors.other = err.message;
         });
       }

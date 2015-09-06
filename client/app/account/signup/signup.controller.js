@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('newappApp')
-  .controller('SignupCtrl', function ($scope, Auth, $location, $window) {
-   
+  .controller('SignupCtrl', function ($scope, User, $location, $window) {
+
     $scope.user = {};
     $scope.errors = {};
 
@@ -10,14 +10,24 @@ angular.module('newappApp')
       $scope.submitted = true;
 
       if(form.$valid) {
+
+        User.save({
+          name: $scope.user.name,
+          email: $scope.user.email,
+          password: $scope.user.password
+        }, function() {
+          $location.path('/inactiveuser');
+        });
+        /*
         Auth.createUser({
           name: $scope.user.name,
           email: $scope.user.email,
           password: $scope.user.password
-        })
+        }, function() { })
         .then( function() {
-          // Account created, redirect to home
-          $location.path('/');
+          // Account created, redirect to destiny
+            console.log('Executed then');
+          $location.path('/inactiveuser');
         })
         .catch( function(err) {
           err = err.data;
@@ -28,12 +38,12 @@ angular.module('newappApp')
             form[field].$setValidity('mongoose', false);
             $scope.errors[field] = error.message;
           });
-        });
+        });*/
       }
     };
 
     $scope.loginOauth = function(provider) {
       $window.location.href = '/auth/' + provider;
     };
-    
+
   });
