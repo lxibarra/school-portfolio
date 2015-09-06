@@ -90,13 +90,15 @@ exports.changePassword = function(req, res, next) {
 };
 
 exports.activate = function(req, res, next) {
+  console.log('Fired');
   if (req.user._id.toString() !== req.params.id) {
     var userId = req.params.id;
     User.findById(userId, function (err, user) {
       if (err) return res.status(500).send(err);
       if (user) {
-        if (!user.email === req.user.email) {
+        if (user.email !== req.user.email) {
           user.status = !user.status;
+          console.log(user);
           user.save(function (err) {
             if (err) return ValidationError(res, err);
           });

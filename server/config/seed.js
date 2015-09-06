@@ -17,7 +17,16 @@ User.find({}).remove(function() {
     status:true,
     email: 'admin@admin.com',
     password: 'admin'
-  }, function() {
+  },
+    {
+      provider: 'local',
+      role: 'user',
+      name: 'Ricardo',
+      status:true,
+      email: 'rick@msn.com',
+      password: '12345'
+    },
+    function() {
       console.log('finished populating users');
     }
   );

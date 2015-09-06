@@ -16,8 +16,8 @@ angular.module('newappApp')
     });
 
    $scope.activate = function(user) {
-     user.status = !user.status;
      user.$activate();
+     user.status = !user.status;
    };
 
   });
