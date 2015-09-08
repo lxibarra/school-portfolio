@@ -17,19 +17,7 @@ angular.module('newappApp')
           password: $scope.user.password
         }, function() {
           $location.path('/inactiveuser');
-        });
-        /*
-        Auth.createUser({
-          name: $scope.user.name,
-          email: $scope.user.email,
-          password: $scope.user.password
-        }, function() { })
-        .then( function() {
-          // Account created, redirect to destiny
-            console.log('Executed then');
-          $location.path('/inactiveuser');
-        })
-        .catch( function(err) {
+        }, function(err) {
           err = err.data;
           $scope.errors = {};
 
@@ -38,7 +26,7 @@ angular.module('newappApp')
             form[field].$setValidity('mongoose', false);
             $scope.errors[field] = error.message;
           });
-        });*/
+        });
       }
     };
 
