@@ -12,6 +12,12 @@ angular.module('newappApp')
           controller:'password'
         }
       },
+      updatePassword:{
+        method: 'PUT',
+        params: {
+          controller:'updatePassword'
+        }
+      },
       activate: {
         method:'PUT',
         params: {

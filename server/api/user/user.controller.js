@@ -89,6 +89,14 @@ exports.changePassword = function(req, res, next) {
   });
 };
 
+/**
+ * Allows an administrator to change some else's password.
+ * Make sure only Admins can call this
+*/
+exports.updatePassword = function(req, res, next) {
+  console.log('Executed', req.body);
+};
+
 exports.activate = function(req, res, next) {
   console.log('Fired');
   if (req.user._id.toString() !== req.params.id) {

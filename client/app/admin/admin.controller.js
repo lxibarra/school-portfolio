@@ -20,4 +20,8 @@ angular.module('newappApp')
      user.status = !user.status;
    };
 
+    $scope.updatePassword = Modal.confirm.updatePassword(function(user) {
+      console.log(user);
+    });
+
   });

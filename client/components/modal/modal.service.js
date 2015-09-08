@@ -8,15 +8,20 @@ angular.module('newappApp')
      * @param  {String} modalClass - (optional) class(es) to be applied to the modal
      * @return {Object}            - the instance $modal.open() returns
      */
-    function openModal(scope, modalClass) {
+    function openModal(scope, modalClass, template) {
       var modalScope = $rootScope.$new();
       scope = scope || {};
       modalClass = modalClass || 'modal-default';
+      var tpl = template || 'remove';
 
       angular.extend(modalScope, scope);
 
+      var templates = {
+        remove: 'components/modal/modal.html',
+        updatePassword: 'components/modal/updatePassword.html'
+      };
       return $modal.open({
-        templateUrl: 'components/modal/modal.html',
+        templateUrl: templates[tpl],
         windowClass: modalClass,
         scope: modalScope
       });
@@ -33,7 +38,7 @@ angular.module('newappApp')
          * @param  {Function} del - callback, ran when delete is confirmed
          * @return {Function}     - the function to open the modal (ex. myModalFn)
          */
-        delete: function(del) {
+        delete: function (del) {
           del = del || angular.noop;
 
           /**
@@ -41,10 +46,10 @@ angular.module('newappApp')
            * @param  {String} name   - name or info to show on modal
            * @param  {All}           - any additional args are passed straight to del callback
            */
-          return function() {
+          return function () {
             var args = Array.prototype.slice.call(arguments),
-                name = args[0].name,
-                deleteModal;
+              name = args[0].name,
+              deleteModal;
 
             deleteModal = openModal({
               modal: {
@@ -54,23 +59,69 @@ angular.module('newappApp')
                 buttons: [{
                   classes: 'btn-danger',
                   text: 'Borrar',
-                  click: function(e) {
+                  click: function (e) {
                     deleteModal.close(e);
                   }
                 }, {
                   classes: 'btn-default',
                   text: 'Cancelar',
-                  click: function(e) {
+                  click: function (e) {
                     deleteModal.dismiss(e);
                   }
                 }]
               }
             }, 'modal-danger');
 
-            deleteModal.result.then(function(event) {
+            deleteModal.result.then(function (event) {
               del.apply(event, args);
             });
           };
+        },
+        updatePassword: function (fn) {
+          fn = fn || angular.noop;
+
+          return function () {
+            var args = Array.prototype.slice.call(arguments),
+              user = args[0],
+              updatepassModal,
+              submitted = false,
+              newCredentials = {
+                error:false
+              };
+
+            updatepassModal = openModal({
+              modal: {
+                dismissable: true,
+                title: 'Cambiar contraseña',
+                html: '<p>Capture y confirme la nueva contraseña para <strong>' + user.name + '</strong>.</p>',
+                user:user,
+                credentials:newCredentials,
+                buttons: [{
+                  classes: 'btn-primary',
+                  text: 'Actualizar',
+                  click: function (e) {
+                    submitted = true;
+                    if(typeof newCredentials.pass !== 'undefined' && newCredentials.pass === newCredentials.passconfirm) {
+                      updatepassModal.close(e);
+                    } else {
+                      newCredentials.error = true
+                    }
+                  }
+                }, {
+                  classes: 'btn-default',
+                  text: 'Cancelar',
+                  click: function (e) {
+                    updatepassModal.dismiss(e);
+                  }
+                }
+                ]
+              }
+            }, 'modal-primary', 'updatePassword');
+
+            updatepassModal.result.then(function(event) {
+              fn.apply(event, args);
+            });
+          }
         }
       }
     };
