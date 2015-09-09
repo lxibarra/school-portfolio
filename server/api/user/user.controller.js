@@ -94,7 +94,18 @@ exports.changePassword = function(req, res, next) {
  * Make sure only Admins can call this
 */
 exports.updatePassword = function(req, res, next) {
-  console.log('Executed', req.body);
+  User.findById(req.body._id, function(err, user) {
+    if(err) return res.status(500).send('Fatal error on server.');
+    if(user) {
+      user.password = req.body.newPassword;
+      user.save(function(err) {
+        if (err) return validationError(res, err);
+        return res.status(200).send('OK');
+      });
+    } else {
+      return res.status(404).send('User not found');
+    }
+  });
 };
 
 exports.activate = function(req, res, next) {

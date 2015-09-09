@@ -77,6 +77,31 @@ angular.module('newappApp')
             });
           };
         },
+        errorNotification:function(fn) {
+          fn = fn || angular.noop;
+          return function() {
+            var args = Array.prototype.slice.call(arguments),
+              title = args[0] || 'Error',
+              message = args[1];
+            var errorNotificationModal = openModal({
+              modal: {
+                dismissable: true,
+                title: title,
+                html: '<p>' + message + '</p>',
+                buttons: [{
+                  classes: 'btn-danger',
+                  text: 'OK',
+                  click: function (e) {
+                    errorNotificationModal.close(e);
+                  }
+                }]
+              }
+            }, 'modal-danger');
+            errorNotificationModal.result.then(function(event) {
+              fn.apply(event, args);
+            });
+          }
+        },
         updatePassword: function (fn) {
           fn = fn || angular.noop;
 
@@ -101,7 +126,12 @@ angular.module('newappApp')
                   text: 'Actualizar',
                   click: function (e) {
                     submitted = true;
-                    if(typeof newCredentials.pass !== 'undefined' && newCredentials.pass === newCredentials.passconfirm) {
+                    if(typeof newCredentials.pass !== 'undefined' &&
+                      newCredentials.pass === newCredentials.passconfirm &&
+                      newCredentials.pass.length >=3
+                    ) {
+
+                      args.push(newCredentials);
                       updatepassModal.close(e);
                     } else {
                       newCredentials.error = true

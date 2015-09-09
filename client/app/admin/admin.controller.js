@@ -20,8 +20,14 @@ angular.module('newappApp')
      user.status = !user.status;
    };
 
-    $scope.updatePassword = Modal.confirm.updatePassword(function(user) {
-      console.log(user);
+    $scope.updatePassword = Modal.confirm.updatePassword(function(user, newPassword) {
+      var tmpuser = angular.copy(user);
+      tmpuser.newPassword = newPassword.pass;
+      //falta poner aqui el then and error
+      tmpuser.$updatePassword().catch(function(){
+        Modal.confirm.errorNotification(angular.noop)
+        ('Error general', 'Se produjo un error al intentar cambiar la contraseña de ' + tmpuser.name);
+      });
     });
 
   });
