@@ -44,23 +44,8 @@ body {
 }
 
 .hero-unit, .jumbotron {
-
-  background: -webkit-linear-gradient(90deg, #43489a 10%, #4B1248 90%); /* Chrome 10+, Saf5.1+ */
-  background:    -moz-linear-gradient(90deg, #43489a 10%, #4B1248 90%); /* FF3.6+ */
-  background:     -ms-linear-gradient(90deg, #43489a 10%, #4B1248 90%); /* IE10 */
-  background:      -o-linear-gradient(90deg, #43489a 10%, #4B1248 90%); /* Opera 11.10+ */
-  background:         linear-gradient(90deg, #43489a 10%, #4B1248 90%); /* W3C */
-
-
-
-  background: -webkit-linear-gradient(90deg, #614385 10%, #516395 90%); /* Chrome 10+, Saf5.1+ */
-  background:    -moz-linear-gradient(90deg, #614385 10%, #516395 90%); /* FF3.6+ */
-  background:     -ms-linear-gradient(90deg, #614385 10%, #516395 90%); /* IE10 */
-  background:      -o-linear-gradient(90deg, #614385 10%, #516395 90%); /* Opera 11.10+ */
-  background:         linear-gradient(90deg, #614385 10%, #516395 90%); /* W3C */
-
-
-
+  background: url('../assets/images/moon.jpg');
+  background-position: center 80%;
 }
 
 .jumbotron {

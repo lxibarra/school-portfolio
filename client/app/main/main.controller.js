@@ -3,6 +3,4 @@
 angular.module('newappApp')
   .controller('MainCtrl', function ($scope) {
 
-
-
   });
