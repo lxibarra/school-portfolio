@@ -4,6 +4,8 @@ var User = require('./user.model');
 var passport = require('passport');
 var config = require('../../config/environment');
 var jwt = require('jsonwebtoken');
+var reCaptcha = require('../../components/reCaptcha/humanValidation');
+
 
 var validationError = function(res, err) {
   return res.status(422).json(err);
@@ -25,18 +27,33 @@ exports.index = function(req, res) {
  * All new users are inactive until admin aproval
  */
 exports.create = function (req, res, next) {
-  var newUser = new User(req.body);
-  //Make super sure that user stays invalid on registration.
-  req.body.status = false;
-  newUser.provider = 'local';
-  newUser.role = 'user';
-  newUser.save(function(err, user) {
-    if (err) return validationError(res, err);
-    //We dont return the validation token because users must be approved first
-    //var token = jwt.sign({_id: user._id }, config.secrets.session, { expiresInMinutes: 60*5 });
 
-    res.status(200).send({ created: true });
-  });
+  //Check reCaptcha
+  if(typeof req.body.reCaptcha === 'undefined' || req.body.reCaptcha.toString().length === 0) {
+    return validationError(res,  { captcha:['Verificacion Invalida']});
+  } else {
+    reCaptcha.go(req.body.reCaptcha, function(error, httpResponse, body) {
+        //console.log(error, body.success);
+      body = JSON.parse(body);
+      if(error) return res.status(500).send('Super hyper fatal error');
+      if(body.success) {
+        var newUser = new User(req.body);
+        //Make super sure that user stays invalid on registration.
+        req.body.status = false;
+        newUser.provider = 'local';
+        newUser.role = 'user';
+        newUser.save(function(err, user) {
+          if (err) return validationError(res, err);
+          //We dont return the validation token because users must be approved first
+          //var token = jwt.sign({_id: user._id }, config.secrets.session, { expiresInMinutes: 60*5 });
+          res.status(200).send({ created: true });
+        });
+      } else {
+        console.log('Error hit', error, body.success);
+        return validationError(res,  { captcha:['Verificacion Invalida']});
+      }
+    });
+  }
 };
 
 /**
