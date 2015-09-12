@@ -15,3 +15,13 @@
 .navbar-inverse .social-links:hover {
   color:#e7e7e7 !important;
 }
+
+@media (max-width: 768px) {
+  .ft li, .ft a{
+    display:inline-block;
+  }
+  
+  .ft a{
+    float:right;
+  }
+}

@@ -1,5 +1,5 @@
 body {
-  padding-bottom: 40px;
+  padding-bottom: 200px;
 }
 
 .navbar-default {
@@ -44,14 +44,24 @@ body {
 }
 
 .hero-unit, .jumbotron {
-  background: url('../assets/images/moon.jpg');
-  background-position: center 80%;
+  background: url('../assets/images/bg-02.png');
+  background-position: center center;
 }
 
 .jumbotron {
   color:#ffffff;
 }
 
+#banner h1 {
+  
+   color: white;
+   text-shadow:
+       3px 3px 0 #516395,
+     -1px -1px 0 #516395,  
+      1px -1px 0 #516395,
+      -1px 1px 0 #516395,
+       1px 1px 0 #516395;
+}
 
 .btn-primary {
   color: #fff;
@@ -61,4 +71,24 @@ body {
 
 .btn-primary:hover {
   background-color:#516395;
+}
+
+
+/* home row separation */
+
+.row.bottom-separator {
+  border-bottom: 1px dashed #eee;
+  padding:0px 0 35px 0;
+  margin-bottom: 35px;
+}
+
+@media (min-width: 768px) {
+  .nav .navbar-nav .navbar-right .ul .li{
+    display:inline-block;
+  } 
+  
+  footer > li {
+    position: relative;
+    display: inline-block;
+  }
 }
