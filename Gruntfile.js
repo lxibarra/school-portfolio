@@ -355,7 +355,8 @@ module.exports = function (grunt) {
             'assets/fonts/**/*',
             'index.html'
           ]
-        }, {
+        },     
+        {
           expand: true,
           cwd: '.tmp/images',
           dest: '<%= yeoman.dist %>/public/assets/images',
