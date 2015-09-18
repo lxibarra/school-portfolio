@@ -11,7 +11,8 @@ angular.module('newappApp')
     if($routeParams.id) {
       $scope._id = $routeParams.id;
       $scope.bgwork = true;
-      $http.get('api/concepts/' + $scope._id).success(function(data) {
+      $http.get('api/concepts/' + $scope._id).then(function(data) {
+          data = data.data;
           $scope.concept.title = data.name;
           $scope.concept.description = data.info;
           $scope.concept.status = data.active||false;
@@ -38,9 +39,12 @@ angular.module('newappApp')
         } else {
           //create
           $http.post('api/concepts', createModel())
-           .success(SaveSuccess)
-           .catch(SaveError)
-           .then(saveComplete);
+           .then(function() {
+              SaveSuccess();
+              saveComplete();
+            })
+           .catch(SaveError);
+           //.then(saveComplete);
         }
 
       }
@@ -78,6 +82,7 @@ angular.module('newappApp')
 
     $scope.resetForm = function ()
     {
+      $scope.submitted = false;
       $scope.submitError = false;
       $scope.submitSuccess = false;
       $scope.concept = {};

@@ -52,17 +52,17 @@ angular.module('newappApp')
       $scope.submitSuccess = false;
       $scope.submitError = false;
       $scope.form = form;
-      $scope.bgwork = true;
+
       if (form.$valid && $scope.array.length > 0) {
 
-
+        $scope.bgwork = true;
         if ($scope._id) {
           $http.put('api/portfolioss/' + $scope._id, createModel())
-            .success(saveSuccess)
+            .then(saveSuccess)
             .catch(saveError);
         } else {
           $http.post('api/portfolioss/', createModel())
-            .success(saveSuccess)
+            .then(saveSuccess)
             .catch(saveError);
         }
       }

@@ -9,8 +9,8 @@ angular.module('newappApp')
 
     //http://meshfields.de/server-side-pagination-angular-mongodb/
 
-    $http.get('api/concepts').success(function(data) {
-      $scope.data = data;
+    $http.get('api/concepts').then(function(data) {
+      $scope.data = data.data;
     });
 
     $scope.changeStatus = function(_id) {

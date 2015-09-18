@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('newappApp')
-  .controller('PortfoliosAttachmentsCtrl', function ($scope, $http, $routeParams, FileUploader, s3Bucket, $cookieStore) {
+  .controller('PortfoliosAttachmentsCtrl', function ($scope, $http, $routeParams, FileUploader, s3Bucket, $cookieStore, $window) {
 
     //currently using tryout endpoint need to remove
     $scope.s3Bucket = s3Bucket;
@@ -83,7 +83,13 @@ angular.module('newappApp')
       }, function() {
         angular.element(event.target).removeAttr('disabled');
       });
-    }
+    };
+
+    $scope.copyLink = function(s3url, url) {
+      angular.element('#clipboard').val(s3url + url);
+      angular.element('#clipboard').select();
+      $window.document.execCommand('copy');
+    };
 
 
   });

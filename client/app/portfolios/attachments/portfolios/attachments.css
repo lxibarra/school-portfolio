@@ -22,6 +22,15 @@ input[type="file"]{
   width:100%;
 }
 
+.clipboard {
+  position:absolute;
+  border:none;
+  outline:none;
+  box-shadow: none;
+  top:-100px;
+  left:-100px;
+}
+
 .pulse2 {
   -webkit-animation: pulse2 1s linear infinite;
   -moz-animation: pulse2 1s linear infinite;

@@ -40,6 +40,7 @@
         <th>ver</th>
         <th>Nombre</th>
         <th>Subido</th>
+        <th>Link</th>
         <th>Acciones</th>
         </thead>
         <tbody>
@@ -54,8 +55,9 @@
           </div>
           </td>
           <td>{{ att.uploaded | date }}</td>
+          <td><a ng-click="copyLink(s3Bucket, att.url)" class="btn btn-default btn-sm"><span class="fa fa-file-archive-o"></span></a></td>
           <td>
-              <button class="btn btn-danger btn-sm" ng-click="deleteFile(att.url, portfolio._id, item._id, att._id, $event)">Borrar</button>
+              <button class="btn btn-danger btn-sm" data-toggle="popover" data-container="body" data-content="Wohoo" ng-click="deleteFile(att.url, portfolio._id, item._id, att._id, $event)">Borrar</button>
           </td>
         </tr>
         </tbody>
@@ -63,3 +65,6 @@
     </div>
   </div>
 </div>
+
+  <input class="clipboard" type="text" id="clipboard"/>
+
