@@ -2,7 +2,7 @@
 <div class="container">
   <div class="row">
     <div class="col-xs-12">
-      <div class="jumbotron">
+      <div class="jumbotron bg-right">
 
         <h1 class="panel-title" ng-bind="portfolio.course"></h1>
 
@@ -36,16 +36,16 @@
       </p>
       <table class="table table-striped">
         <thead>
-        <th>#</th>
+        <th class="hidden-xs">#</th>
         <th>ver</th>
         <th>Nombre</th>
-        <th>Subido</th>
-        <th>Link</th>
+        <th class="hidden-xs">Subido</th>
+        <th class="hidden-xs">Link</th>
         <th>Acciones</th>
         </thead>
         <tbody>
         <tr ng-repeat="att in item.attachments">
-          <td>{{ $index + 1 }}</td>
+          <td class="hidden-xs">{{ $index + 1 }}</td>
           <td><a href="{{ s3Bucket + att.url }}" target="_blank">Descargar</a></td>
           <td><div label-editor data-label="{{ att.name }}"
                    data-enter-action="updateFileName"
@@ -54,8 +54,8 @@
                    data-data-attachment-id="{{ att._id }}">
           </div>
           </td>
-          <td>{{ att.uploaded | date }}</td>
-          <td><a ng-click="copyLink(s3Bucket, att.url)" class="btn btn-default btn-sm"><span class="fa fa-file-archive-o"></span></a></td>
+          <td class="hidden-xs">{{ att.uploaded | date }}</td>
+          <td class="hidden-xs"><a ng-click="copyLink(s3Bucket, att.url)" class="btn btn-default btn-sm"><span class="fa fa-file-archive-o"></span></a></td>
           <td>
               <button class="btn btn-danger btn-sm" data-toggle="popover" data-container="body" data-content="Wohoo" ng-click="deleteFile(att.url, portfolio._id, item._id, att._id, $event)">Borrar</button>
           </td>

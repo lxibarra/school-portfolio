@@ -44,20 +44,27 @@ body {
 }
 
 .hero-unit, .jumbotron {
-  background: url('../assets/images/bg-02.png');
-  background-position: center center;
+  background: url('../assets/images/gicons.png');
+  background-position: 20% center;
+  background-repeat: no-repeat;
+  background-color: #43489a;
 }
 
 .jumbotron {
   color:#ffffff;
+
+}
+
+.bg-right {
+  background-position: right top;
 }
 
 #banner h1 {
-  
+
    color: white;
    text-shadow:
        3px 3px 0 #516395,
-     -1px -1px 0 #516395,  
+     -1px -1px 0 #516395,
       1px -1px 0 #516395,
       -1px 1px 0 #516395,
        1px 1px 0 #516395;
@@ -85,8 +92,8 @@ body {
 @media (min-width: 768px) {
   .nav .navbar-nav .navbar-right .ul .li{
     display:inline-block;
-  } 
-  
+  }
+
   footer > li {
     position: relative;
     display: inline-block;
