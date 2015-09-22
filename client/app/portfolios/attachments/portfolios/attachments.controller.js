@@ -12,7 +12,6 @@ angular.module('newappApp')
     }
 
 
-
     function onAfterAddingFile(fileItem) {
       angular.element('.' + fileItem.uploader.domElement).toggleClass('hide');
       fileItem.upload();
@@ -91,8 +90,9 @@ angular.module('newappApp')
         });
     };
 
-    $scope.deleteFile = function (url, portfolio_id, concept_id, attachment_id, event) {
+    $scope.deleteFile = function (url, portfolio_id, concept_id, attachment_id, event, name) {
 
+      Modal.confirm.delete(function() {
         angular.element(event.target).attr('disabled');
         $http.post('api/tryouts/remove/attachment', {
           url: url,
@@ -104,7 +104,7 @@ angular.module('newappApp')
         }, function () {
           angular.element(event.target).removeAttr('disabled');
         });
-
+      })(undefined, '<p>¿Está seguro que desea eliminar el archivo <strong>' + name + '</strong>? </p>');
     };
 
     $scope.copyLink = function (s3url, url) {
