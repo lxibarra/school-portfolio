@@ -23,7 +23,7 @@
         <div class="btn-group pull-right">
           <a class="btn btn-info" ng-click="updatePassword(user)" ><span class="fa fa-key"></span></a>
           <a ng-class="{ 'btn btn-success':user.status, 'btn btn-default':!user.status }" ng-click="activate(user)"><span ng-class="{ 'fa fa-thumbs-up':user.status, 'fa fa-thumbs-down':!user.status }"></span></a>
-          <a class="btn btn-danger"  ng-click="delete(user)"><span class="fa fa-trash"></span></a>
+          <a class="btn btn-danger"  ng-click="delete(user, '<p>Esta seguro que desea borrar al usuario <strong>' + user.name + '</strong> ?</p>')"><span class="fa fa-trash"></span></a>
         </div>
       </td>
     </tr>

@@ -48,14 +48,17 @@ angular.module('newappApp')
            */
           return function () {
             var args = Array.prototype.slice.call(arguments),
-              name = args[0].name,
+              //the first argument is reserved for objects
+              message = args[1],
+              title = args[2]||'Confirmar Eliminación',
               deleteModal;
 
             deleteModal = openModal({
               modal: {
                 dismissable: true,
-                title: 'Confirmar Eliminación',
-                html: '<p>Esta seguro que desea borrar al usuario <strong>' + name + '</strong> ?</p>',
+                title: title,
+                //html: '<p>Esta seguro que desea borrar al usuario <strong>' + name + '</strong> ?</p>',
+                html: message,
                 buttons: [{
                   classes: 'btn-danger',
                   text: 'Borrar',
