@@ -73,18 +73,39 @@ angular.module('newappApp')
       angular.element('.fakeBtn').toggleClass('hide');
     });
 
+    function inputEnableDisable(input, enable) {
+      if(enable === false) {
+        input.addClass('pulse2');
+        input.attr('disabled', 'disabled');
+      } else {
+        input.removeAttr('disabled');
+        input.removeClass('pulse2');
+      }
+    }
+
+    $scope.updateConcept = function(input, attrs) {
+      inputEnableDisable(input, false);
+      var model = {};
+      model[attrs.field] = input.val();
+      $http.put('api/portfolioss/' + attrs.portfolioId + '/concept/' + attrs.conceptId,
+        model).then(function() {
+          inputEnableDisable(input, true);
+        }, function(err) {
+          inputEnableDisable(input, true);
+          ErrorNotification('Error',
+            '<p>No fue posible guardar los cambios, intentelo mas tarde o contacte a su administrador.</p>');
+        });
+    };
+
     $scope.updateFileName = function (input, attrs) {
-      input.addClass('pulse2');
-      input.attr('disabled', 'disabled');
+      inputEnableDisable(input, false);
       $http.post('api/tryouts/' + attrs.portfolioId + '/' + attrs.conceptId + '/' + attrs.attachmentId,
         {name: input.val()}).then(function () {
-          input.removeAttr('disabled');
-          input.removeClass('pulse2');
+          inputEnableDisable(input, true);
         }, function (err) {
-          input.removeAttr('disabled');
-          input.removeClass('pulse2');
+          inputEnableDisable(input, true);
           ErrorNotification('Error',
-            'No fue posible guardar los cambios, intentelo mas tarde o contacte a su administrador.');
+            '<p>No fue posible guardar los cambios, intentelo mas tarde o contacte a su administrador.</p>');
 
 
         });

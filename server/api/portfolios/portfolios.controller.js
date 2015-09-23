@@ -45,6 +45,28 @@ exports.update = function(req, res) {
   });
 };
 
+exports.updateConcept = function(req, res) {
+  if(req.body._id) { delete req.body._id; }
+  Portfolios.findById(req.params.id).where('owner').equals(req.user.email).exec(function(err, portfolios){
+    if(err) { return handleError(res, err); }
+    if(!portfolios) { return res.status(404).send('Not Found'); }
+    var concept = {};
+    for(var c=0; c< portfolios.concepts.length; c++) {
+      if(portfolios.concepts[c]._id == req.params.conceptId) {
+        portfolios.concepts[c].name = req.body.name||portfolios.concepts[c].name;
+        portfolios.concepts[c].info = req.body.info||portfolios.concepts[c].info;
+        concept =  portfolios.concepts[c];
+        break;
+      }
+    }
+    var updated = _.extend(portfolios, portfolios);
+    updated.save(function(err) {
+      if(err) { return res.status(500).send('Unable to save'); }
+      return res.status(200).json(concept);
+    })
+  });
+};
+
 // Deletes a portfolios from the DB.
 exports.destroy = function(req, res) {
   Portfolios.findById(req.params.id).where('owner').equals(req.user.email).exec(function (err, portfolios) {

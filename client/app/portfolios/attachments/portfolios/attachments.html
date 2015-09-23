@@ -23,8 +23,22 @@
   </div>
   <div class="row" ng-repeat="item in portfolio.concepts" on-finish-render="onFinishedRender">
     <div class="col-xs-12">
-      <h3 ng-bind="item.name"></h3>
-      <p ng-bind="item.info"></p>
+
+      <h3><div
+          label-editor
+          data-enter-action="updateConcept"
+          data-data-portfolio-id="{{ portfolio._id }}"
+          data-data-concept-id="{{ item._id }}"
+          data-data-field="name"
+          data-label="{{ item.name }}">
+        </div>
+      </h3>
+      <p label-editor
+         data-enter-action="updateConcept"
+         data-data-portfolio-id="{{ portfolio._id }}"
+         data-data-concept-id="{{ item._id }}"
+         data-data-field="info"
+         data-label="{{ item.info }}"></p>
       <p>
 
       <div class="file-input-holder">
